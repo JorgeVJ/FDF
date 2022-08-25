@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 18:24:17 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:53:38 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	fdf_interface_init(t_mlx *mlx)
 	mlx->ui.time= 0;
 	mlx->ui.mouse_in= 0;
 	mlx->ui.rgbcircle = 0;
-	mlx->ui.cube_map.dir = "cube";
-	mlx->ui.cone_map.dir = "cone";
+	mlx->ui.cube_map.dir = "UI/cube";
+	mlx->ui.cone_map.dir = "UI/cone";
 	mlx->ui.cube_map.xyzc = NULL;
 	mlx->ui.cone_map.xyzc = NULL;
 	mlx->ui.cube_map.size = 0;
