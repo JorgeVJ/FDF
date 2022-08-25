@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 16:27:33 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:54:08 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,12 @@ int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 	(void)x;
 	(void)y;
 	if (button == 4)
-	{
-		img_clean(mlx);
-		mlx->cam.zoom++;
-		img_draw(mlx);
-	}
+		update_value(mlx, (double *)(&mlx->cam.zoom), 1, INT_MAX);
 	else if (button == 5)
-	{
-		img_clean(mlx);
-		mlx->cam.zoom--;
-		img_draw(mlx);
-	}
+		update_value(mlx, (double *)(&mlx->cam.zoom), -1, INT_MAX);
 	else if (button == 1 && x > mlx->ui.x * 2
-		&& x < mlx->ui.x * 6 && y > mlx->ui.y - 125 && y < mlx->ui.y && mlx->ui.rgbcircle) 
+		&& x < mlx->ui.x * 6 && y > mlx->ui.y - 125
+		&& y < mlx->ui.y && mlx->ui.rgbcircle) 
 	{
 		mlx->map.colormin =	color_rgb(mlx, x, y, 1);
 		img_draw(mlx);
@@ -117,11 +110,7 @@ int	hook_mouseup(int button, int x, int y, t_mlx *mlx)
 	(void)x;
 	(void)y;
 	if (button == 1)
-	{	
-		img_clean(mlx);
-		mlx->mouse.l = 0;
-		img_draw(mlx);
-	}
+		update_value(mlx, (double *)(&mlx->mouse.l), 42, 0);
 	else if (button == 2)
 		mlx->mouse.r = 0;
 	return (0);
@@ -133,17 +122,9 @@ int	hook_rotate(t_mlx *mlx)
 	if (!(mlx->ui.time % 630) && mlx->ui.mouse_in)
 		Button_draw(mlx);
 	if (!(mlx->ui.time % 420) && mlx->cam.auto_rot)
-	{
-		img_clean(mlx);
-		mlx->cam.angleh += 0.01;
-		img_draw(mlx);
-	}
+		update_value(mlx, &mlx->cam.angleh, 0.01, 2 * M_PI);
 	if (!(mlx->ui.time % 420) && mlx->cam.auto_rotv)
-	{
-		img_clean(mlx);
-		mlx->cam.anglev += 0.01;
-		img_draw(mlx);
-	}
+		update_value(mlx, &mlx->cam.anglev, 0.01, 2 * M_PI);
 	if (mlx->ui.time > 1678)
 		mlx->ui.time = 0;
 	return (0);

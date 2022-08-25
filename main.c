@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 16:46:28 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:24:17 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fdf_init(t_mlx *mlx, char *dir)
 	mlx->cam.angleh = 1 * M_PI_4;
 	mlx->cam.anglev = 2 * M_PI_4;
 	mlx->cam.view = 0;
-	mlx->cam.dist = 500;
+	mlx->cam.dist = 50;
 	mlx->img.x = WIN_W / 2;
 	mlx->img.y = WIN_H / 2;
 	mlx->mouse.l = 0;

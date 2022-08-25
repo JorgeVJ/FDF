@@ -6,12 +6,12 @@
 #    By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/10 15:43:41 by jvasquez          #+#    #+#              #
-#    Updated: 2022/08/25 13:51:14 by jvasquez         ###   ########.fr        #
+#    Updated: 2022/08/25 18:43:44 by jvasquez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Ofast -Wall -Wextra -Werror
 CC = gcc
 FUNCTIONS =		main.c				\
 				hooks.c				\
@@ -20,6 +20,7 @@ FUNCTIONS =		main.c				\
 				points.c			\
 				image.c				\
 				pcono.c				\
+				animate.c			\
 				map.c
 FUNCTIONS_GNL = get_next_line.c			\
 				get_next_line_utils.c	
@@ -42,11 +43,11 @@ fclean: clean
 
 re: fclean all
 
-pepe:	re clean
+pyramide:	re clean
 			make clean
+			./fdf test_maps/pyramide.fdf
 			#./fdf cube
 			#./fdf cone
-			./fdf test_maps/pyramide.fdf
 			#./fdf test_maps/julia.fdf
 			#./fdf test_maps/elem-fract.fdf
 			#./fdf test_maps/elem.fdf

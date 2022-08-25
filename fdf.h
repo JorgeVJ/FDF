@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 16:44:25 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:19:17 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "gnl/get_next_line.h"
 #include "libft/libft.h"
 #include <math.h>
+#include <limits.h>
 
 typedef struct	s_img {
 	void	*img;
@@ -133,8 +134,8 @@ int		map_deltaz(t_map *map);
 void	map_color(t_map *map);
 void	map_repaint(t_map *map);
 int		trgb(int t, int r, int g, int b);
-int		rotz(t_cam *cam, int x, int y, int xy);
-int		rotx(t_cam *cam, int y, int z);
+double	rotz(t_cam *cam, double x, double y, double xy);
+double	rotx(t_cam *cam, double y, double z);
 void	line(t_img *img, t_point a, t_point b, int trgb);
 t_point	point_move(t_map *m, int point, int dx, int dy, int dz);
 t_point	point_project(t_cam *cam, t_point a, int gapx, int gapy);
@@ -145,4 +146,5 @@ void	map_limits(t_map *m);
 void	Button_load(t_mlx *mlx);
 void	Button_draw(t_mlx *mlx);
 void	put_data(t_mlx *mlx);
+void	update_value(t_mlx *mlx, double *val, double dv, double max);
 #endif

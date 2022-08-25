@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:29:54 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 12:36:39 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:26:31 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_point	point_project(t_cam *cam, t_point a, int gapx, int gapy)
 	return (p);
 }
 
-int	rotz(t_cam *cam, int x, int y, int xy)
+double	rotz(t_cam *cam, double x, double y, double xy)
 {
 	if (xy == 0)
 		return (x * cos(cam->angleh) - y * sin(cam->angleh));
@@ -41,7 +41,7 @@ int	rotz(t_cam *cam, int x, int y, int xy)
 		return (y * cos(cam->angleh) + x * sin(cam->angleh));
 }
 
-int	rotx(t_cam *cam, int y, int z)
+double rotx(t_cam *cam, double y, double z)
 {
 	z *= -cam->zoom;
 	return (z * cos(cam->anglev) + y * sin(cam->anglev));
