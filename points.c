@@ -6,70 +6,68 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:29:54 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/19 20:43:15 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/25 12:36:39 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point	point_move(t_map *m, int point, int dx, int dy)
+t_point	point_move(t_map *m, int point, int dx, int dy, int dz)
 {
 	t_point	p;
 
-	p.x = m->xyzc[0][point] + dx;
-	p.y = m->xyzc[1][point] + dy;
-	p.z = m->xyzc[2][point];
+	p.x = m->xyzc[point][0] + dx;
+	p.y = m->xyzc[point][1] + dy;
+	p.z = m->xyzc[point][2] + dz;
 	return (p);
 }
 
-t_point	point_project(t_mlx *mlx, t_point a, int gapx, int gapy)
+t_point	point_project(t_cam *cam, t_point a, int gapx, int gapy)
 {
 	int		d;
 	t_point	p;
 
-	d = mlx->cam.zoom;
-	p.x = gapx + rotz(mlx, a.x * d, a.y * d, 0);
-	p.y = gapy + rotx(mlx, rotz(mlx, a.x * d, a.y * d, 1), a.z);
+	d = cam->zoom;
+	p.x = gapx + rotz(cam, a.x * d, a.y * d, 0);
+	p.y = gapy + rotx(cam, rotz(cam, a.x * d, a.y * d, 1), a.z);
 	return (p);
 }
 
-int	rotz(t_mlx *mlx, int x, int y, int xy)
+int	rotz(t_cam *cam, int x, int y, int xy)
 {
 	if (xy == 0)
-		return (x * cos(mlx->cam.angleh) - y * sin(mlx->cam.angleh));
+		return (x * cos(cam->angleh) - y * sin(cam->angleh));
 	else
-		return (y * cos(mlx->cam.angleh) + x * sin(mlx->cam.angleh));
+		return (y * cos(cam->angleh) + x * sin(cam->angleh));
 }
 
-int	rotx(t_mlx *mlx, int y, int z)
+int	rotx(t_cam *cam, int y, int z)
 {
-	z *= -mlx->cam.zoom;
-	return (z * cos(mlx->cam.anglev) + y * sin(mlx->cam.anglev));
+	z *= -cam->zoom;
+	return (z * cos(cam->anglev) + y * sin(cam->anglev));
 }
 
-void	line(t_mlx *mlx, int xpf, int ypf, int trgb)
+void	line(t_img *img, t_point a, t_point b, int trgb)
 {
 	int	x;
 	int	y;
 
-	if (fabs(xpf - mlx->line.xo) > fabs(ypf - mlx->line.yo))
+	if (fabs(b.x - a.x) > fabs(b.y - a.y))
 	{
-		x = fmin(mlx->line.xo, xpf);
-		while (++x < fmax(mlx->line.xo, xpf))
+		x = fmin(a.x, b.x);
+		while (++x < fmax(a.x, b.x))
 		{
-			y = (ypf - mlx->line.yo) * (x - mlx->line.xo) / (xpf - mlx->line.xo)
-				+ mlx->line.yo;
-			my_mlx_pixel_put(&mlx->img, x, y, trgb);
+			y = (b.y - a.y) * (x - a.x) / (b.x - a.x) + a.y;
+			my_mlx_pixel_put(img, x, y, trgb);
 		}
 	}
-	else
+	else if (fabs(b.x - a.x) <= fabs(b.y - a.y))
 	{
-		y = fmin(mlx->line.yo, ypf);
-		while (++y < fmax(mlx->line.yo, ypf))
+		x = fmin(a.y, b.y);
+		while (++x < fmax(a.y, b.y))
 		{
-			x = (xpf - mlx->line.xo) * (y - mlx->line.yo) / (ypf - mlx->line.yo)
-				+ mlx->line.xo;
-			my_mlx_pixel_put(&mlx->img, x, y, trgb);
+			y = (b.x - a.x) * (x - a.y) / (b.y - a.y) + a.x;
+			my_mlx_pixel_put(img, y, x, trgb);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:39:15 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/19 17:37:56 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:55:59 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	map_deltaz(t_map *map)
 	i = -1;
 	while (++i < map->size)
 	{
-		if (max < map->xyzc[2][i])
-			max = map->xyzc[2][i];
+		if (max < map->xyzc[i][2])
+			max = map->xyzc[i][2];
 		else
-			min = map->xyzc[2][i];
-		if (map->colormax < map->xyzc[3][i])
-			map->colormax = map->xyzc[3][i];
+			min = map->xyzc[i][2];
+		if (map->colormax < map->xyzc[i][3])
+			map->colormax = map->xyzc[i][3];
 		else
-			map->colormin = map->xyzc[3][i];
+			map->colormin = map->xyzc[i][3];
 	}	
 	return (max - min);
 }
@@ -62,18 +62,18 @@ void	map_color(t_map *map)
 	i = -1;
 	while (++i < map->size)
 	{
-		if (map->colormin == map->xyzc[3][i])
+		if (map->colormin == map->xyzc[i][3])
 		{
 			if (map->colormin < map->colormax)
-				map->xyzc[3][i] = trgb(0,
-						map->cmin[0] + map->xyzc[2][i] * step[0],
-						map->cmin[1] + map->xyzc[2][i] * step[1],
-						map->cmin[2] + map->xyzc[2][i] * step[2]);
+				map->xyzc[i][3] = trgb(0,
+						map->cmin[0] + map->xyzc[i][2] * step[0],
+						map->cmin[1] + map->xyzc[i][2] * step[1],
+						map->cmin[2] + map->xyzc[i][2] * step[2]);
 			else
-				map->xyzc[3][i] = trgb(0,
-						map->cmax[0] + map->xyzc[2][i] * step[0],
-						map->cmax[1] + map->xyzc[2][i] * step[1],
-						map->cmax[2] + map->xyzc[2][i] * step[2]);
+				map->xyzc[i][3] = trgb(0,
+						map->cmax[0] + map->xyzc[i][2] * step[0],
+						map->cmax[1] + map->xyzc[i][2] * step[1],
+						map->cmax[2] + map->xyzc[i][2] * step[2]);
 		}
 	}
 }
@@ -84,6 +84,6 @@ void	map_repaint(t_map *map)
 
 	i = -1;
 	while (++i < map->size)
-		map->xyzc[3][i] = map->colormin;
+		map->xyzc[i][3] = map->colormin;
 	map_color(map);
 }

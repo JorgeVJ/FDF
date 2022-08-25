@@ -6,51 +6,11 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 01:02:24 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/19 20:19:40 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:06:31 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*int	color_pick(t_img *img, int x, int y)
-{
-	char *dst;
-	unsigned int		color;
-
-	if (x < 0 || x >= WIN_W|| y < 0 || y >= WIN_H)
-		return (0);
-	printf("%p\n", img->addr);
-	printf("x:%d y:%d\n",  x, y);
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	//dst = img->addr + (y * img->line_length + x * img->bits_per_pixel);
-	//printf("color%X\n",  *(unsigned int *)dst);
-	//printf("color%p\n",  *dst);
-	color = (unsigned int)dst & 0xFFFFFFFF;
-	printf("color%d\n",  color);
-	return(*(unsigned int *)dst);
-
-	float a;
-	a = 0;
-	if (y != 625)
-	{
-		a = atan((y - 625) / abs((x - 100))) * (3 * 255) / (2 * M_PI);
-		printf("angle:%f\n", atan((y - 625) / abs(x - 100)));
-	}
-	else if (x > 100)
-		a = 180 * (3 * 255) / (2 * M_PI);
-	printf("a:%f\n", a);
-	if (a <= 255) 
-	{
-		mlx->map.colormin =	trgb(0, (255 - a), a, 0);
-		printf("a < 255: r%f g%f\n", (255 - a), a);
-	}
-	else if (a <= 510)
-		mlx->map.colormin = trgb(0, 0, (510 - a), (a - 255));
-	else
-		mlx->map.colormin = trgb(0, (a - 510), 0, (765 - a));
-}*/
-
-//int	color_in_rgb(int x, int y)
 
 int	color_polar(float a, int d)
 {
@@ -82,7 +42,7 @@ int	color_rgb(t_mlx *mlx, int getx, int gety, int d)
 			x = 100 + r * cos(angle);
 			y = mlx->ui.y - 50 + r * sin(angle);
 			my_mlx_pixel_put(&mlx->img, x, y, color_polar(a, d));
-			if (x != 0 && x == getx && y == gety)
+			if (x != 0 && x == getx && y == gety && mlx->ui.rgbcircle)
 				return (color_polar(a, d));
 		}
 		a += 1;
@@ -90,7 +50,7 @@ int	color_rgb(t_mlx *mlx, int getx, int gety, int d)
 	return (0);
 }
 
-void	color_select(t_mlx *mlx)
+void	circle_draw(t_mlx *mlx, int color, int x, int y)
 {
 	int		a;
 	int		r;
@@ -103,10 +63,45 @@ void	color_select(t_mlx *mlx)
 		angle = (a * 2 * M_PI) / (3 * 255);
 		while (++r < 15)
 			my_mlx_pixel_put(&mlx->img,
-				mlx->ui.x + r * sin(angle),
-				mlx->ui.y + r * cos(angle),
-				mlx->map.colormin);
+				x + r * sin(angle),
+				y + r * cos(angle),
+				color);
 		a += 1;
 	}
 	map_repaint(&mlx->map);
+}
+
+void	Button_load(t_mlx *mlx)
+{
+	int		x;
+	int		i;
+
+	i = -1;
+	while (++i <= 30)
+	{
+		mlx->ui.Button_file[11] = '0' + i % 10;
+		mlx->ui.Button_file[10] = '0' + i / 10;
+		mlx->ui.Button[i] = mlx_xpm_file_to_image(&mlx->mlx,
+				mlx->ui.Button_file, &x, &x);
+	}
+}
+
+void	Button_draw(t_mlx *mlx)
+{
+		mlx_put_image_to_window(mlx->mlx, mlx->win, 
+				mlx->ui.Button[mlx->ui.frame], WIN_W - 60, WIN_H - 60);
+		if (mlx->ui.frame < 30)
+			mlx->ui.frame++;
+		else
+			mlx->ui.frame = 0;
+}
+
+void	put_data(t_mlx *mlx)
+{
+	mlx_string_put(mlx->mlx, mlx->win,
+			WIN_W / 2 - 100, WIN_H - 20, 0xFFFFFF,
+			ft_strjoin("Angle H: ",
+			ft_strjoin(ft_itoa(mlx->cam.angleh * 180 / M_PI),
+			ft_strjoin("  Angle V: ",
+			ft_itoa(mlx->cam.anglev * 180 / M_PI)))));
 }
