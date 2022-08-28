@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 18:19:17 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:47:27 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_point {
 
 typedef struct	s_map {
 	char *dir;
+	int	scale;
 	int	width;
 	int	height;
 	int	size;
@@ -57,13 +58,12 @@ typedef struct	s_map {
 
 typedef struct	s_cam {
 	double		zoom;
-	int		auto_rot;
-	int		auto_rotv;
-	double	angleh;
-	double	anglev;
-	int		view;
-	double	dist;
-	t_point	pos;
+	double		angleh;
+	double		anglev;
+	double		dist;
+	int			auto_rot[4];
+	int			view;
+	t_point		pos;
 }				t_cam;
 
 typedef struct	s_mouse {
@@ -83,7 +83,7 @@ typedef struct	s_line {
 }				t_line;
 
 typedef struct	s_ui {
-	int	rgbcircle;
+	int		rgbcircle;
 	void	**Button;
 	char	*Button_file;
 	int		frame;
@@ -95,6 +95,9 @@ typedef struct	s_ui {
 	t_map	cube_map;
 	t_cam	cone_cam;
 	t_map	cone_map;
+	t_map	sphere_map;
+	int		animation;
+	double	a_frame;
 }				t_ui;
 
 typedef struct	s_color {
@@ -119,7 +122,7 @@ int 	hook_mousemove(int x, int y, t_mlx *mlx);
 int		hook_mousedown(int button, int x, int y, t_mlx *mlx);
 int		hook_mouseup(int button, int x, int y, t_mlx *mlx);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	img_fill(t_map *map, t_cam *cam, t_img *img, int gapx, int gapy, int trgb);
+void	proy_iso(t_map *map, t_cam *cam, t_img *img, int gapx, int gapy, int trgb);
 void	img_new(t_mlx *mlx);
 void	img_clean(t_mlx *mlx);
 void	img_draw(t_mlx *mlx);
@@ -141,10 +144,19 @@ t_point	point_move(t_map *m, int point, int dx, int dy, int dz);
 t_point	point_project(t_cam *cam, t_point a, int gapx, int gapy);
 void	fdf_init(t_mlx *mlx, char *dir);
 t_point cam_pos(t_cam *cam);
-void	cam_rayo(t_mlx *mlx, t_map *map, t_cam *cam, int trgb);
+void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb);
 void	map_limits(t_map *m);
-void	Button_load(t_mlx *mlx);
-void	Button_draw(t_mlx *mlx);
+void	button_load(t_mlx *mlx);
+void	button_draw(t_mlx *mlx);
 void	put_data(t_mlx *mlx);
-void	update_value(t_mlx *mlx, double *val, double dv, double max);
+void	update_value_up(t_mlx *mlx, double *val, double dv, double max);
+void	update_value_down(t_mlx *mlx, double *val, double dv, double min);
+int		**add_point(int **points, int	size, t_point p, int rgb);
+void	fill_one(t_map *map, char **datos);
+void	fill_two(t_map *map, char **datos);
+void	fill_four(t_map *map, char **datos);
+int		datos_len(char **datos);
+void	proyections(t_mlx *mlx, int	key);
+void	create(t_mlx *mlx);
+void	sphere_transform(t_mlx *mlx);
 #endif

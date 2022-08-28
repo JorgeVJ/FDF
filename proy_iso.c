@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:29:54 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 18:26:31 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:33:15 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ double	rotz(t_cam *cam, double x, double y, double xy)
 		return (y * cos(cam->angleh) + x * sin(cam->angleh));
 }
 
-double rotx(t_cam *cam, double y, double z)
+double	rotx(t_cam *cam, double y, double z)
 {
 	z *= -cam->zoom;
 	return (z * cos(cam->anglev) + y * sin(cam->anglev));
@@ -58,7 +58,7 @@ void	line(t_img *img, t_point a, t_point b, int trgb)
 		while (++x < fmax(a.x, b.x))
 		{
 			y = (b.y - a.y) * (x - a.x) / (b.x - a.x) + a.y;
-			my_mlx_pixel_put(img, x, y, trgb);
+			my_mlx_pixel_put(img, (int)x, (int)y, trgb);
 		}
 	}
 	else if (fabs(b.x - a.x) <= fabs(b.y - a.y))
@@ -67,7 +67,7 @@ void	line(t_img *img, t_point a, t_point b, int trgb)
 		while (++x < fmax(a.y, b.y))
 		{
 			y = (b.x - a.x) * (x - a.y) / (b.y - a.y) + a.x;
-			my_mlx_pixel_put(img, y, x, trgb);
+			my_mlx_pixel_put(img, (int)y, (int)x, trgb);
 		}
 	}
 }

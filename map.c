@@ -6,19 +6,18 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:18:52 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/25 18:46:13 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:12:15 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	**add_point(int	**points, int	size, int x, int y, int z, int rgb)
+int	**add_point(int **points, int size, t_point p, int rgb)
 {
 	int	**temp;
-	int	i;
-	int	j;
-	
-	//printf("%d\n",  size);
+	int		i;
+	int		j;
+
 	temp = malloc(sizeof(int *) * size);
 	i = 0;
 	while (points && i < size - 1)
@@ -30,58 +29,23 @@ int	**add_point(int	**points, int	size, int x, int y, int z, int rgb)
 		i++;
 	}
 	if (points)
+	{
 		free(points);
+		points = NULL;
+	}
 	temp[i] = malloc(sizeof(int) * 4);
-	temp[i][0] = x;
-	temp[i][1] = y;
-	temp[i][2] = z;
+	temp[i][0] = p.x;
+	temp[i][1] = p.y;
+	temp[i][2] = p.z;
 	temp[i][3] = rgb;
 	return (temp);
-}
-
-void	fill_one(t_map *map, char **datos)
-{
-	map->xyzc = add_point(map->xyzc, map->size + 1, map->width, map->height, ft_atoi(datos[0]), map->colormin);
-	/*map->xyzc[map->size][0] = map->width;
-	map->xyzc[map->size][1] = map->height;
-	map->xyzc[map->size][2] = ft_atoi(datos[0]);
-	map->xyzc[map->size][3] = map->colormin;*/
-}
-
-void	fill_two(t_map *map, char **datos)
-{
-	map->xyzc = add_point(map->xyzc, map->size + 1, map->width, map->height, ft_atoi(datos[0]), atoi_hexa(datos[1]));
-/*	map->xyzc[map->size][0] = map->width;
-	map->xyzc[map->size][1] = map->height;
-	map->xyzc[map->size][2] = ft_atoi(datos[0]);
-	map->xyzc[map->size][3] = atoi_hexa(datos[1]);*/
-}
-
-void	fill_four(t_map *map, char **datos)
-{	
-	map->xyzc = add_point(map->xyzc, map->size + 1, ft_atoi(datos[0]), ft_atoi(datos[1]), ft_atoi(datos[2]), atoi_hexa(datos[3]));
-//	map->xyzc[map->size][0] = ft_atoi(datos[0]);
-//	map->xyzc[map->size][1] = ft_atoi(datos[1]);
-//	map->xyzc[map->size][2] = ft_atoi(datos[2]);
-//	map->xyzc[map->size][3] = atoi_hexa(datos[3]);
-
-}
-
-int	datos_len(char **datos)
-{
-	int	i;
-
-	i = 0;
-	while (datos[i])
-		i++;
-	return (i);
 }
 
 void	map_split(t_map *map, char **cotas)
 {
 	char	**datos;
 	int		len;
-	
+
 	datos = ft_split(cotas[map->height], ',');
 	len = datos_len(datos);
 	if (len == 1)
@@ -90,7 +54,11 @@ void	map_split(t_map *map, char **cotas)
 		fill_two(map, datos);
 	else if (len == 4)
 		fill_four(map, datos);
-	free (datos);
+	if (datos)
+	{
+		free (datos);
+		datos = NULL;
+	}	
 }
 
 void	map_fill(t_map *map, char *dir)
@@ -112,31 +80,19 @@ void	map_fill(t_map *map, char *dir)
 			map->height++;
 		}
 		map->width++;
-		free (cotas);
-		free (line);
+		if (cotas)
+		{
+			free (cotas);
+			cotas = NULL;
+		}
+		if (line)
+		{
+			free (line);
+			line = NULL;
+		}
 		line = get_next_line(file);
 	}
 	close(file);
 	map->height--;
 	map->width--;
-}
-
-int	atoi_hexa(char *str)
-{
-	int	sum;
-
-	sum = 0;
-	while (*str == '0' || *str == 'x')
-		str++;
-	while (*str)
-	{
-		if (*str >= '0' && *str <= '9')
-			sum = sum * 16 + *str - '0';
-		else if (*str >= 'A' && *str <= 'F')
-			sum = sum * 16 + *str - 'A' + 10;
-		else if (*str >= 'a' && *str <= 'f')
-			sum = sum * 16 + *str - 'a' + 10;
-		str++;
-	}
-	return (sum);
 }

@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:39:15 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/24 12:55:59 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:20:35 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ void	map_color(t_map *map)
 		{
 			if (map->colormin < map->colormax)
 				map->xyzc[i][3] = trgb(0,
-						map->cmin[0] + map->xyzc[i][2] * step[0],
-						map->cmin[1] + map->xyzc[i][2] * step[1],
-						map->cmin[2] + map->xyzc[i][2] * step[2]);
+						map->cmin[0] + abs(map->xyzc[i][2]) * step[0],
+						map->cmin[1] + abs(map->xyzc[i][2]) * step[1],
+						map->cmin[2] + abs(map->xyzc[i][2]) * step[2]);
 			else
 				map->xyzc[i][3] = trgb(0,
-						map->cmax[0] + map->xyzc[i][2] * step[0],
-						map->cmax[1] + map->xyzc[i][2] * step[1],
-						map->cmax[2] + map->xyzc[i][2] * step[2]);
+						map->cmax[0] + abs(map->xyzc[i][2]) * step[0],
+						map->cmax[1] + abs(map->xyzc[i][2]) * step[1],
+						map->cmax[2] + abs(map->xyzc[i][2]) * step[2]);
 		}
 	}
 }

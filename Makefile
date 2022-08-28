@@ -1,4 +1,5 @@
 # **************************************************************************** #
+#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,7 +7,7 @@
 #    By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/10 15:43:41 by jvasquez          #+#    #+#              #
-#    Updated: 2022/08/25 18:43:44 by jvasquez         ###   ########.fr        #
+#    Updated: 2022/08/25 21:28:13 by jvasquez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +15,16 @@ NAME = fdf
 CFLAGS = -Ofast -Wall -Wextra -Werror
 CC = gcc
 FUNCTIONS =		main.c				\
-				hooks.c				\
-				color.c				\
-				interfaz.c			\
-				points.c			\
-				image.c				\
-				pcono.c				\
+				ui_hooks.c				\
+				ui_hooks_outils.c				\
+				ui_colors.c			\
+				ui_buttons.c			\
+				image.c			\
+				proy_iso.c				\
+				proy_conic.c		\
 				animate.c			\
+				map_color.c				\
+				map_outils.c		\
 				map.c
 FUNCTIONS_GNL = get_next_line.c			\
 				get_next_line_utils.c	
@@ -51,4 +55,10 @@ pyramide:	re clean
 			#./fdf test_maps/julia.fdf
 			#./fdf test_maps/elem-fract.fdf
 			#./fdf test_maps/elem.fdf
-			#./fdf test_maps/pylone.fdf
+
+small:	re clean
+			make clean
+			./fdf test_maps/10-2.fdf
+pylone:	re clean
+			make clean
+			./fdf test_maps/pylone.fdf
