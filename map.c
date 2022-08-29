@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:18:52 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/26 18:12:15 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:46:36 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,18 @@ void	map_fill(t_map *map, char *dir)
 	close(file);
 	map->height--;
 	map->width--;
+}
+
+void	map_scale(t_map *m, float scale)
+{
+	int		point;
+
+	point = -1;
+	while (++point < m->size)
+	{
+		m->xyzc[point][0] = (int)((float)m->xyzc[point][0] * scale);
+		m->xyzc[point][1] = (int)((float)m->xyzc[point][1] * scale);
+		m->xyzc[point][2] = (int)((float)m->xyzc[point][2] * scale);
+
+	}
 }

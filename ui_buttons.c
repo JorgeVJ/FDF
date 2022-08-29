@@ -6,13 +6,13 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 22:05:40 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/26 17:08:08 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:28:51 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	button_load(t_mlx *mlx)
+/*void	button_load(t_mlx *mlx)
 {
 	int		x;
 	int		i;
@@ -25,9 +25,40 @@ void	button_load(t_mlx *mlx)
 		mlx->ui.Button[i] = mlx_xpm_file_to_image(&mlx->mlx,
 				mlx->ui.Button_file, &x, &x);
 	}
+}*/
+
+void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames)
+{
+	int		x;
+	int		i;
+	int		len;
+
+	images->max = frames;
+	len = ft_strlen(file) + 1;
+	images->file = malloc(sizeof(char) * (len));
+	ft_strlcpy(images->file, file, len); 
+	images->images = malloc(sizeof(void *) * (frames + 1));
+	i = -1;
+	while (++i <= frames)
+	{
+		images->file[len - 6] = '0' + i % 10;
+		images->file[len - 7] = '0' + i / 10;
+		images->images[i] = mlx_xpm_file_to_image(&mlx->mlx,
+				images->file, &x, &x);
+	}
 }
 
-void	button_draw(t_mlx *mlx)
+void	image_animate(t_mlx *mlx, t_frames *images, int x, int y)
+{
+	mlx_put_image_to_window(mlx->mlx, mlx->win,
+		images->images[images->frame], x, y);
+	if (images->frame < images->max)
+		images->frame++;
+	else
+		images->frame = 0;
+}
+
+/*void	button_draw(t_mlx *mlx)
 {
 	mlx_put_image_to_window(mlx->mlx, mlx->win,
 		mlx->ui.Button[mlx->ui.frame], WIN_W - 60, WIN_H - 60);
@@ -35,7 +66,7 @@ void	button_draw(t_mlx *mlx)
 		mlx->ui.frame++;
 	else
 		mlx->ui.frame = 0;
-}
+}*/
 
 void	str_be_free(char *str)
 {

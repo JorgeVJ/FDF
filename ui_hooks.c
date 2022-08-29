@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/26 18:35:30 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:26:09 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 
 int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {
-	printf("button%d\n",  button);
+	//printf("button%d\n",  button);
 	if (button == 4)
 		update_value_up(mlx, &mlx->cam.zoom, 1, INT_MAX);
-	else if (button == 5 && mlx->cam.zoom - 0.1 > 0)
-		update_value_down(mlx, &mlx->cam.zoom, -0.1, 0);
+	else if (button == 5 && mlx->cam.zoom - 1 > 0)
+		update_value_down(mlx, &mlx->cam.zoom, -1, 0);
 	else if (button == 1 && x > mlx->ui.x * 2
 		&& x < mlx->ui.x * 6 && y > mlx->ui.y - 125
 		&& y < mlx->ui.y && mlx->ui.rgbcircle)
@@ -120,7 +120,8 @@ int	hook_rotate(t_mlx *mlx)
 	if (!(mlx->ui.time % 1000) && mlx->ui.animation)
 		sphere_transform(mlx);
 	if (!(mlx->ui.time % 630) && mlx->ui.mouse_in)
-		button_draw(mlx);
+		image_animate(mlx, &mlx->ui.logo, WIN_W - 60, WIN_H - 60);
+		//button_draw(mlx);
 	if (!(mlx->ui.time % 420) && mlx->cam.auto_rot[0])
 		update_value_up(mlx, &mlx->cam.angleh, 0.02, 2 * M_PI);
 	if (!(mlx->ui.time % 420) && mlx->cam.auto_rot[2])

@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:30:59 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/26 18:34:12 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:24:59 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,19 @@ void	sphere_transform(t_mlx *mlx)
 		if (sphere)
 			free(sphere);
 		sphere = NULL;
+		map_scale(&mlx->map, 0.1);
+		mlx->cam.zoom *= 10;
 	}
-	if (mlx->ui.time > 25000)
-		mlx->ui.a_frame += 0.01;
-	sphere = mlx->ui.sphere_map.xyzc;
-	map_limits(&mlx->ui.sphere_map);
-	mlx->cam.zoom = 1 + 420
-		/ (1 + fabs(mlx->ui.sphere_map.max.x - mlx->ui.sphere_map.min.x));
-	i = 0;
-	while (i < mlx->map.size && mlx->ui.time > 0)
+	else
 	{
-		metamorphose(mlx, sphere, i);
-		i++;
+		if (mlx->ui.time > 25000)
+			mlx->ui.a_frame += 0.01;
+		sphere = mlx->ui.sphere_map.xyzc;
+		map_limits(&mlx->ui.sphere_map);
+		mlx->cam.zoom = 1 + 420
+			/ (1 + fabs(mlx->ui.sphere_map.max.x - mlx->ui.sphere_map.min.x));
+		i = 0;
+		while (i < mlx->map.size && mlx->ui.time > 0)
+			metamorphose(mlx, sphere, i++);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/26 15:47:27 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:21:06 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,19 @@ typedef struct	s_line {
 	double	yf;
 }				t_line;
 
+typedef struct	s_frames {
+	void	**images;
+	char	*file;
+	int		frame;
+	int		max;
+}				t_frames;
+
 typedef struct	s_ui {
 	int		rgbcircle;
 	void	**Button;
 	char	*Button_file;
+	t_frames keys;
+	t_frames logo;
 	int		frame;
 	int		time;
 	int		mouse_in;
@@ -136,6 +145,7 @@ void	map_fill(t_map *map, char *dir);
 int		map_deltaz(t_map *map);
 void	map_color(t_map *map);
 void	map_repaint(t_map *map);
+void	put_data(t_mlx *mlx);
 int		trgb(int t, int r, int g, int b);
 double	rotz(t_cam *cam, double x, double y, double xy);
 double	rotx(t_cam *cam, double y, double z);
@@ -146,9 +156,6 @@ void	fdf_init(t_mlx *mlx, char *dir);
 t_point cam_pos(t_cam *cam);
 void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb);
 void	map_limits(t_map *m);
-void	button_load(t_mlx *mlx);
-void	button_draw(t_mlx *mlx);
-void	put_data(t_mlx *mlx);
 void	update_value_up(t_mlx *mlx, double *val, double dv, double max);
 void	update_value_down(t_mlx *mlx, double *val, double dv, double min);
 int		**add_point(int **points, int	size, t_point p, int rgb);
@@ -159,4 +166,7 @@ int		datos_len(char **datos);
 void	proyections(t_mlx *mlx, int	key);
 void	create(t_mlx *mlx);
 void	sphere_transform(t_mlx *mlx);
+void	map_scale(t_map *map, float scale);
+void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames);
+void	image_animate(t_mlx *mlx, t_frames *images, int x, int y);
 #endif

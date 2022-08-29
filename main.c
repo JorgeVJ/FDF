@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/28 20:08:58 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:28:47 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,8 @@ void	fdf_interface_init(t_mlx *mlx)
 	mlx->ui.y = WIN_H - 25;
 	map_fill(&mlx->ui.cube_map, mlx->ui.cube_map.dir);
 	map_fill(&mlx->ui.cone_map, mlx->ui.cone_map.dir);
-	mlx->ui.Button = NULL;
-	mlx->ui.Button = malloc(sizeof(void *) * 32);
-	mlx->ui.Button_file = malloc(sizeof(char) * 17);
-	ft_strlcpy(mlx->ui.Button_file, "UI/Button/00.xpm", 17);
-	button_load(mlx);
+	images_load(mlx, &mlx->ui.keys, "UI/Keys/00.xpm", 4);
+	images_load(mlx, &mlx->ui.logo, "UI/Button/00.xpm", 30);
 }
 
 void	fdf_cam_init(t_mlx *mlx)
@@ -75,7 +72,8 @@ void	fdf_init(t_mlx *mlx, char *dir)
 	img_new(mlx);
 	map_color(&mlx->map);
 	img_draw(mlx);
-	button_draw(mlx);
+	image_animate(mllx, &mlx
+	//button_draw(mlx);
 }
 
 int	main(int argc, char **argv)
