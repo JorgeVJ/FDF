@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:18:36 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/26 17:07:35 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 09:54:43 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,11 @@ void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb)
 		}
 		i++;
 	}
+}
+
+int	point_overlap(t_point a, t_point b)
+{
+	if (a.x == b.x && a.y == b.y && a.z == b.z)
+		return (1);
+	return (0);
 }

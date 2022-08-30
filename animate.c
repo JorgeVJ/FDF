@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:30:59 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/29 13:24:59 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 09:00:37 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ void	sphere_transform(t_mlx *mlx)
 	{
 		mlx->ui.animation = 0;
 		mlx->cam.auto_rot[2] = 0;
-		if (sphere)
-			free(sphere);
-		sphere = NULL;
+		map_free(sphere);
 		map_scale(&mlx->map, 0.1);
 		mlx->cam.zoom *= 10;
 	}

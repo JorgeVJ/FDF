@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/29 15:28:47 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:53:44 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ void	fdf_cam_init(t_mlx *mlx)
 	mlx->cam.angleh = 0 * M_PI_4;
 	mlx->cam.anglev = 5 * M_PI_4;
 	mlx->cam.view = 1;
-	mlx->cam.dist = 240;
+	mlx->cam.dist = 50;
 }
 
 void	fdf_init(t_mlx *mlx, char *dir)
 {
 	mlx->map.scale = 10;
+	mlx->ui.cube_map.scale = 1;
+	mlx->ui.cone_map.scale = 1;
 	mlx->map.xyzc = NULL;
 	mlx->map.dir = dir;
 	mlx->map.colormin = 0xFF;
@@ -72,8 +74,7 @@ void	fdf_init(t_mlx *mlx, char *dir)
 	img_new(mlx);
 	map_color(&mlx->map);
 	img_draw(mlx);
-	image_animate(mllx, &mlx
-	//button_draw(mlx);
+	image_animate(mlx, &mlx->ui.logo, WIN_W - 60, WIN_H - 60);
 }
 
 int	main(int argc, char **argv)

@@ -15,16 +15,18 @@ NAME = fdf
 CFLAGS = -Ofast -Wall -Wextra -Werror
 CC = gcc
 FUNCTIONS =		main.c				\
-				ui_hooks.c				\
-				ui_hooks_outils.c				\
+				ui_hooks.c			\
+				ui_hooks_outils.c	\
 				ui_colors.c			\
-				ui_buttons.c			\
-				image.c			\
-				proy_iso.c				\
+				ui_images.c			\
+				ui_help.c			\
+				image.c				\
+				proy_iso.c			\
 				proy_conic.c		\
 				animate.c			\
-				map_color.c				\
+				map_color.c			\
 				map_outils.c		\
+				be_free.c			\
 				map.c
 FUNCTIONS_GNL = get_next_line.c			\
 				get_next_line_utils.c	

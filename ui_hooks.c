@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/29 15:26:09 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:26:07 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ int	hook_keydown(int key, t_mlx *mlx)
 	else if (key == 8)
 		update_value_up(mlx, (double *)(&mlx->cam.dist), 5, INT_MAX);
 	else if (key == 9)
-		update_value_down(mlx, (double *)(&mlx->cam.dist), -5, 75);
+		update_value_down(mlx, (double *)(&mlx->cam.dist), -5, 10);
 	img_draw(mlx);
-	//printf("%d\n", key);
 	return (0);
 }
 
@@ -45,8 +44,8 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 {
 	if (x > WIN_W - 60 && x < WIN_W && y > WIN_H - 60 && y < WIN_H)
 		mlx->ui.mouse_in = 1;
-	else
-		mlx->ui.mouse_in = 0;
+	else if (mlx->ui.mouse_in)
+		update_value_up(mlx, (double *)(&mlx->ui.mouse_in), 42, 1);
 	if (mlx->mouse.l && x < WIN_W && y < WIN_H && x > 0 && y > 0)
 	{
 		img_clean(mlx);
@@ -70,11 +69,10 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 
 int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {
-	//printf("button%d\n",  button);
 	if (button == 4)
-		update_value_up(mlx, &mlx->cam.zoom, 1, INT_MAX);
+		update_value_up(mlx, &mlx->cam.zoom, 0.1, INT_MAX);
 	else if (button == 5 && mlx->cam.zoom - 1 > 0)
-		update_value_down(mlx, &mlx->cam.zoom, -1, 0);
+		update_value_down(mlx, &mlx->cam.zoom, -0.1, 0);
 	else if (button == 1 && x > mlx->ui.x * 2
 		&& x < mlx->ui.x * 6 && y > mlx->ui.y - 125
 		&& y < mlx->ui.y && mlx->ui.rgbcircle)
@@ -91,8 +89,9 @@ int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 		mlx->ui.rgbcircle = !mlx->ui.rgbcircle;
 	else if (button == 1 && x < 75 && y < 75)
 	{
-		img_clean(mlx);
-		mlx->cam.view = !mlx->cam.view;
+		update_value_up(mlx, (double *)(&mlx->cam.view), 1, 2);
+		/*img_clean(mlx);
+		mlx->cam.view = !mlx->cam.view;*/
 	}
 	else if (button == 2)
 	{
@@ -120,8 +119,11 @@ int	hook_rotate(t_mlx *mlx)
 	if (!(mlx->ui.time % 1000) && mlx->ui.animation)
 		sphere_transform(mlx);
 	if (!(mlx->ui.time % 630) && mlx->ui.mouse_in)
+	{
 		image_animate(mlx, &mlx->ui.logo, WIN_W - 60, WIN_H - 60);
-		//button_draw(mlx);
+		key_help(mlx);
+		rotations_off(mlx);
+	}
 	if (!(mlx->ui.time % 420) && mlx->cam.auto_rot[0])
 		update_value_up(mlx, &mlx->cam.angleh, 0.02, 2 * M_PI);
 	if (!(mlx->ui.time % 420) && mlx->cam.auto_rot[2])

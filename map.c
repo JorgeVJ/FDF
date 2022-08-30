@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:18:52 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/29 12:46:36 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:20:51 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	**add_point(int **points, int size, t_point p, int rgb)
 {
 	int	**temp;
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	temp = malloc(sizeof(int *) * size);
 	i = 0;
@@ -58,7 +58,7 @@ void	map_split(t_map *map, char **cotas)
 	{
 		free (datos);
 		datos = NULL;
-	}	
+	}
 }
 
 void	map_fill(t_map *map, char *dir)
@@ -80,19 +80,12 @@ void	map_fill(t_map *map, char *dir)
 			map->height++;
 		}
 		map->width++;
-		if (cotas)
-		{
-			free (cotas);
-			cotas = NULL;
-		}
-		if (line)
-		{
-			free (line);
-			line = NULL;
-		}
+		ptr_be_free(cotas);
+		str_be_free(line);
 		line = get_next_line(file);
 	}
 	close(file);
+	printf(" mapa LEIDO\n");
 	map->height--;
 	map->width--;
 }
@@ -107,6 +100,28 @@ void	map_scale(t_map *m, float scale)
 		m->xyzc[point][0] = (int)((float)m->xyzc[point][0] * scale);
 		m->xyzc[point][1] = (int)((float)m->xyzc[point][1] * scale);
 		m->xyzc[point][2] = (int)((float)m->xyzc[point][2] * scale);
+	}
+}
 
+void	map_limits(t_map *m)
+{
+	int	i;
+
+	m->max.x = INT_MIN;
+	m->min.x = INT_MAX;
+	m->max.y = INT_MIN;
+	m->min.y = INT_MAX;
+	i = 0;
+	while (i < m->size)
+	{
+		if (m->xyzc[i][0] < m->min.x)
+			m->min.x = m->xyzc[i][0];
+		else if (m->xyzc[i][0] > m->max.x)
+			m->max.x = m->xyzc[i][0];
+		if (m->xyzc[i][1] < m->min.y)
+			m->min.y = m->xyzc[i][1];
+		else if (m->xyzc[i][1] > m->max.y)
+			m->max.y = m->xyzc[i][1];
+		i++;
 	}
 }

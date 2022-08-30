@@ -6,15 +6,14 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/29 15:21:06 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:13:00 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define WIN_W	1080
-# define WIN_H	720
-# define MAP_SIZE 520
+# define WIN_W	1960
+# define WIN_H	1024
 
 #include <mlx.h>
 #include <stdlib.h>
@@ -76,10 +75,6 @@ typedef struct	s_mouse {
 typedef struct	s_line {
 	t_point	ini;
 	t_point	fin;
-	double	xo;
-	double	yo;
-	double	xf;
-	double	yf;
 }				t_line;
 
 typedef struct	s_frames {
@@ -164,9 +159,17 @@ void	fill_two(t_map *map, char **datos);
 void	fill_four(t_map *map, char **datos);
 int		datos_len(char **datos);
 void	proyections(t_mlx *mlx, int	key);
+int		point_overlap(t_point a, t_point b);
 void	create(t_mlx *mlx);
 void	sphere_transform(t_mlx *mlx);
 void	map_scale(t_map *map, float scale);
 void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames);
 void	image_animate(t_mlx *mlx, t_frames *images, int x, int y);
+void	key_put(t_mlx *mlx, char *str, int x, int y);
+void	key_help(t_mlx *mlx);
+void	str_be_free(char *str);
+void	ptr_be_free(char **str);
+void	rotations_off(t_mlx *mlx);
+char	*join_free(char *a, char *b);
+void	map_free(int **map);
 #endif
