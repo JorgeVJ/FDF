@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:30:24 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/07/16 12:11:56 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:14:03 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	ft_cleanbuf(char **buf);
 char	*ft_getline(char **buf, int fd);
 char	*ft_fillbuf(ssize_t *size, int fd);
 void	*ft_strfree(char **buf);
-int		ft_strlen(char *str);
+int		ft_strlen_gnl(char *str);
 #endif
