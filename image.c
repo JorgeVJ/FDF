@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:24:10 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 09:54:36 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:38:05 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,15 @@ void	img_draw(t_mlx *mlx)
 	if (mlx->cam.view)
 	{
 		if (!mlx->ui.animation)
-			proy_iso(&mlx->map, &mlx->cam, &mlx->img,
-				mlx->img.x, mlx->img.y, 1);
+			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 1);
 		else
-			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img,
-				mlx->img.x, mlx->img.y, 1);
-		proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 35, 50, 1);
+			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 1);
+		proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 1);
 	}
 	else
 	{
 		proy_conic(mlx, &mlx->map, &mlx->cam, 1);
-		proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 35, 50, 1);
+		proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 1);
 	}
 	if (mlx->ui.rgbcircle)
 		color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
@@ -63,21 +61,19 @@ void	img_clean(t_mlx *mlx)
 	if (mlx->cam.view)
 	{
 		if (!mlx->ui.animation)
-			proy_iso(&mlx->map, &mlx->cam, &mlx->img,
-				mlx->img.x, mlx->img.y, 0);
+			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 0);
 		else
-			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img,
-				mlx->img.x, mlx->img.y, 0);
-		proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 35, 50, 0);
+			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 0);
+		proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 0);
 	}
 	else
 	{
 		proy_conic(mlx, &mlx->map, &mlx->cam, 0);
-		proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 35, 50, 0);
+		proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 0);
 	}
 }
 
-void	proy_iso(t_map *m, t_cam *cam, t_img *img, int gapx, int gapy, int trgb)
+void	proy_iso(t_map *m, t_cam *cam, t_img *img, int trgb)
 {
 	int		i;
 	t_point	a;
@@ -87,20 +83,20 @@ void	proy_iso(t_map *m, t_cam *cam, t_img *img, int gapx, int gapy, int trgb)
 	i = 0;
 	while (i < m->size)
 	{
-		b = point_move(m, i, -(m->max.x - m->min.x) / 2,
-				-(m->max.y - m->min.y) / 2, 0);
-		b = point_project(cam, b, gapx, gapy);
+		b = point_move(m, i, point_fill(-(m->max.x - m->min.x) / 2,
+					-(m->max.y - m->min.y) / 2, 0));
+		b = point_project(cam, b, m->gap.x, m->gap.y);
 		if (i > 0 && (i % (m->height + 1)) && !point_overlap(a, b))
 			line (img, a, b, trgb * fmax(m->xyzc[i][3], m->xyzc[i - 1][3]));
 		a.x = b.x;
 		a.y = b.y;
 		if (i + m->height + 1 < m->size)
 		{
-			b = point_move(m, i + m->height + 1,
-					-(m->max.x - m->min.x) / 2,
-					-(m->max.y - m->min.y) / 2, 0);
-			b = point_project(cam, b, gapx, gapy);
-			line(img, a, b, trgb * fmax(m->xyzc[i][3], m->xyzc[i + m->height + 1][3]));
+			b = point_move(m, i + m->height + 1, point_fill(-(m->max.x
+							- m->min.x) / 2, -(m->max.y - m->min.y) / 2, 0));
+			b = point_project(cam, b, m->gap.x, m->gap.y);
+			line(img, a, b, trgb * fmax(m->xyzc[i][3],
+					m->xyzc[i + m->height + 1][3]));
 		}
 		i++;
 	}

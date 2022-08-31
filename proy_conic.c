@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:18:36 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 09:54:43 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:43:38 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_point	intersect(t_map *map, t_cam *cam, int point)
 	double	t;
 
 	b = cam->pos;
-	a = point_move(map, point, -(map->max.x - map->min.x) / 2,
-			-(map->max.y - map->min.y) / 2,
-			-(map->max.z - map->min.z) / 2);
+	a = point_move(map, point, point_fill(-(map->max.x - map->min.x) / 2,
+				-(map->max.y - map->min.y) / 2,
+				-(map->max.z - map->min.z) / 2));
 	v.x = a.x - b.x;
 	v.y = a.y - b.y;
 	v.z = a.z - b.z;
@@ -59,7 +59,7 @@ void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb)
 	while (i < map->size)
 	{
 		p = intersect(map, cam, i);
-		fin = point_project(cam, p, mlx->img.x, mlx->img.y);
+		fin = point_project(cam, p, mlx->map.gap.x, mlx->map.gap.y);
 		if (i > 0 && (i % (map->height + 1)))
 			line (&mlx->img, ini, fin,
 				trgb * fmax(map->xyzc[i][3], map->xyzc[i - 1][3]));
@@ -67,7 +67,7 @@ void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb)
 		if (i + map->height + 1 < map->size)
 		{
 			p = intersect(map, cam, i + map->height + 1);
-			fin = point_project(cam, p, mlx->img.x, mlx->img.y);
+			fin = point_project(cam, p, mlx->map.gap.x, mlx->map.gap.y);
 			line(&mlx->img, ini, fin, trgb * fmax(map->xyzc[i][3],
 					map->xyzc[i + map->height + 1][3]));
 		}
@@ -80,4 +80,14 @@ int	point_overlap(t_point a, t_point b)
 	if (a.x == b.x && a.y == b.y && a.z == b.z)
 		return (1);
 	return (0);
+}
+
+t_point	point_fill(int x, int y, int z)
+{
+	t_point	p;
+
+	p.x = x;
+	p.y = y;
+	p.z = z;
+	return (p);
 }

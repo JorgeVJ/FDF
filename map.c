@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:18:52 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 14:20:51 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:20:49 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	map_fill(t_map *map, char *dir)
 		line = get_next_line(file);
 	}
 	close(file);
-	printf(" mapa LEIDO\n");
 	map->height--;
 	map->width--;
 }

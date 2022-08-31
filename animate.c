@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:30:59 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 09:00:37 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:37:57 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	sphere_init(t_mlx *mlx)
 void	sphere_fill(int	**sphere, int point, t_point angle)
 {
 	sphere[point] = malloc(sizeof(int) * 4);
-	sphere[point][0] = (int)(42 * sin(angle.x) * cos(angle.z)) + 20;
-	sphere[point][1] = (int)(42 * cos(angle.x) * cos(angle.z)) + 20;
-	sphere[point][2] = (int)(42 * sin(angle.z));
+	sphere[point][0] = (int)(42 * sin(angle.x) * cos(angle.z)) + 21;
+	sphere[point][1] = (int)(42 * cos(angle.x) * cos(angle.z)) + 21;
+	sphere[point][2] = (int)(42 * sin(angle.z)) + 21;
 	sphere[point][3] = 0xFF;
 }
 
-void	create(t_mlx *mlx)
+void	sphere_create(t_mlx *mlx)
 {
 	int		i;
 	int		**sphere;

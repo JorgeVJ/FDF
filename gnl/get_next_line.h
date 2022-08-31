@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 14:30:24 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 17:14:03 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 20:20:08 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 2000
 # endif
 
 char	*get_next_line(int fd);

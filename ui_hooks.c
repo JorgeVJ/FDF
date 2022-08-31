@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 12:26:07 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:49:55 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 	if (mlx->mouse.l && x < WIN_W && y < WIN_H && x > 0 && y > 0)
 	{
 		img_clean(mlx);
-		mlx->img.x = mlx->img.x + WIN_W / 2 + x - mlx->mouse.x;
-		mlx->img.y = mlx->img.y + WIN_H / 2 + y - mlx->mouse.y;
+		mlx->map.gap.x = mlx->map.gap.x + WIN_W / 2 + x - mlx->mouse.x;
+		mlx->map.gap.y = mlx->map.gap.y + WIN_H / 2 + y - mlx->mouse.y;
 		mlx->mouse.x = WIN_W / 2 + x;
 		mlx->mouse.y = WIN_H / 2 + y;
 		img_draw(mlx);
@@ -73,26 +73,8 @@ int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 		update_value_up(mlx, &mlx->cam.zoom, 0.1, INT_MAX);
 	else if (button == 5 && mlx->cam.zoom - 1 > 0)
 		update_value_down(mlx, &mlx->cam.zoom, -0.1, 0);
-	else if (button == 1 && x > mlx->ui.x * 2
-		&& x < mlx->ui.x * 6 && y > mlx->ui.y - 125
-		&& y < mlx->ui.y && mlx->ui.rgbcircle)
-	{
-		mlx->map.colormin = color_rgb(mlx, x, y, 1);
-		img_draw(mlx);
-	}
-	else if (button == 1 && x > mlx->ui.x * 2 && y < mlx->ui.y - 25)
-	{
-		mlx->mouse.l = 1;
-		mlx->mouse.y = WIN_H / 2 + y;
-	}
-	else if (button == 1 && x < mlx->ui.x * 2 && y > mlx->ui.y - 25)
-		mlx->ui.rgbcircle = !mlx->ui.rgbcircle;
-	else if (button == 1 && x < 75 && y < 75)
-	{
-		update_value_up(mlx, (double *)(&mlx->cam.view), 1, 2);
-		/*img_clean(mlx);
-		mlx->cam.view = !mlx->cam.view;*/
-	}
+	if (button == 1)
+		mouse_left(mlx, x, y);
 	else if (button == 2)
 	{
 		mlx->mouse.r = 1;

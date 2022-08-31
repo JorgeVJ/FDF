@@ -6,19 +6,19 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:29:54 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 09:14:21 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:38:22 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point	point_move(t_map *m, int point, int dx, int dy, int dz)
+t_point	point_move(t_map *m, int point, t_point d)
 {
 	t_point	p;
 
-	p.x = m->xyzc[point][0] + dx;
-	p.y = m->xyzc[point][1] + dy;
-	p.z = m->xyzc[point][2] + dz;
+	p.x = m->xyzc[point][0] + d.x;
+	p.y = m->xyzc[point][1] + d.y;
+	p.z = m->xyzc[point][2] + d.z;
 	return (p);
 }
 

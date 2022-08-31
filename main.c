@@ -6,34 +6,48 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 16:53:44 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:29:09 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_interface_init(t_mlx *mlx)
+void	fdf_ui_maps_init(t_mlx *mlx)
 {
-	mlx->ui.animation = 1;
-	mlx->mouse.l = 0;
-	mlx->mouse.r = 0;
-	mlx->ui.frame = 0;
-	mlx->ui.time = 0;
-	mlx->ui.mouse_in = 0;
-	mlx->ui.rgbcircle = 0;
 	mlx->ui.cube_map.dir = "UI/cube";
 	mlx->ui.cone_map.dir = "UI/cone";
+	mlx->ui.cube_map.gap.x = UI_X;
+	mlx->ui.cube_map.gap.y = UI_Y;
+	mlx->ui.cone_map.gap.x = UI_X;
+	mlx->ui.cone_map.gap.y = UI_Y;
+	mlx->ui.cube_map.xyzc = NULL;
+	mlx->ui.cube_map.xyzc = NULL;
 	mlx->ui.cube_map.xyzc = NULL;
 	mlx->ui.cone_map.xyzc = NULL;
 	mlx->ui.cube_map.size = 0;
+	mlx->ui.cone_map.size = 0;
+	map_fill(&mlx->ui.cube_map, mlx->ui.cube_map.dir);
+	map_fill(&mlx->ui.cone_map, mlx->ui.cone_map.dir);
+}
+
+void	fdf_interface_init(t_mlx *mlx)
+{
+	fdf_ui_maps_init(mlx);
+	mlx->ui.animation = 1;
+	mlx->mouse.l = 0;
+	mlx->mouse.r = 0;
+	mlx->ui.time = 0;
+	mlx->ui.mouse_in = 0;
+	mlx->ui.rgbcircle = 0;
+	mlx->ui.sphere_map.gap.x = WIN_W / 2;
+	mlx->ui.sphere_map.gap.y = WIN_H / 2;
+	mlx->map.gap.x = WIN_W / 2;
+	mlx->map.gap.y = WIN_H / 2;
 	mlx->ui.cube_cam.zoom = 5;
 	mlx->ui.cube_cam.dist = 25;
-	mlx->ui.cone_map.size = 0;
 	mlx->ui.a_frame = 0;
 	mlx->ui.x = 25;
 	mlx->ui.y = WIN_H - 25;
-	map_fill(&mlx->ui.cube_map, mlx->ui.cube_map.dir);
-	map_fill(&mlx->ui.cone_map, mlx->ui.cone_map.dir);
 	images_load(mlx, &mlx->ui.keys, "UI/Keys/00.xpm", 4);
 	images_load(mlx, &mlx->ui.logo, "UI/Button/00.xpm", 30);
 }
@@ -48,7 +62,7 @@ void	fdf_cam_init(t_mlx *mlx)
 	mlx->cam.angleh = 0 * M_PI_4;
 	mlx->cam.anglev = 5 * M_PI_4;
 	mlx->cam.view = 1;
-	mlx->cam.dist = 50;
+	mlx->cam.dist = 300;
 }
 
 void	fdf_init(t_mlx *mlx, char *dir)
@@ -62,12 +76,10 @@ void	fdf_init(t_mlx *mlx, char *dir)
 	mlx->map.colormax = 0xFFFFFF;
 	mlx->map.size = 0;
 	mlx->map.width = 0;
-	mlx->img.x = WIN_W / 2;
-	mlx->img.y = WIN_H / 2;
 	map_fill(&mlx->map, dir);
 	map_limits(&mlx->map);
 	fdf_cam_init(mlx);
-	create(mlx);
+	sphere_create(mlx);
 	fdf_interface_init(mlx);
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, WIN_W, WIN_H, "FDF");
