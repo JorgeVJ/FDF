@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/31 16:54:15 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:07:36 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_point {
 	double	x;
 	double	y;
 	double	z;
+	int		c;
 }				t_point;
 
 typedef struct s_map {
@@ -123,7 +124,6 @@ void	proy_iso(t_map *map, t_cam *cam, t_img *img, int trgb);
 void	img_new(t_mlx *mlx);
 void	img_clean(t_mlx *mlx);
 void	img_draw(t_mlx *mlx);
-int		atoi_hexa(char *str);
 int		hook_rotate(t_mlx *mlx);
 void	circle_draw(t_mlx *mlx, int color, int x, int y);
 int		color_rgb(t_mlx *mlx, int getx, int gety, int d);
@@ -132,6 +132,10 @@ void	map_fill(t_map *map, char *dir);
 int		map_deltaz(t_map *map);
 void	map_color(t_map *map);
 void	map_repaint(t_map *map);
+void	map_limits(t_map *m);
+void	map_scale(t_map *map, float scale);
+void	map_free(int **map);
+int		**map_size(char *dir, int *width, int *height);
 void	put_data(t_mlx *mlx);
 int		trgb(int t, int r, int g, int b);
 double	rotz(t_cam *cam, double x, double y, double xy);
@@ -142,19 +146,12 @@ t_point	point_project(t_cam *cam, t_point a, int gapx, int gapy);
 void	fdf_init(t_mlx *mlx, char *dir);
 t_point	cam_pos(t_cam *cam);
 void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb);
-void	map_limits(t_map *m);
 void	update_value_up(t_mlx *mlx, double *val, double dv, double max);
 void	update_value_down(t_mlx *mlx, double *val, double dv, double min);
-int		**add_point(int **points, int size, t_point p, int rgb);
-void	fill_one(t_map *map, char **datos);
-void	fill_two(t_map *map, char **datos);
-void	fill_four(t_map *map, char **datos);
-int		datos_len(char **datos);
 void	proyections(t_mlx *mlx, int key);
 int		point_overlap(t_point a, t_point b);
 void	sphere_create(t_mlx *mlx);
 void	sphere_transform(t_mlx *mlx);
-void	map_scale(t_map *map, float scale);
 void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames);
 void	image_animate(t_mlx *mlx, t_frames *images, int x, int y);
 void	key_put(t_mlx *mlx, char *str, int x, int y);
@@ -163,7 +160,10 @@ void	str_be_free(char *str);
 void	ptr_be_free(char **str);
 void	rotations_off(t_mlx *mlx);
 char	*join_free(char *a, char *b);
-void	map_free(int **map);
 void	mouse_left(t_mlx *mlx, int x, int y);
 t_point	point_fill(int x, int y, int z);
+int		ft_atoi_pos(char *str, int *pos);
+int		atoi_hexa_pos(char *str, int *pos);
+void	point_create(t_map *map, int point, t_point p);
+int		color_read(char *line, int *pos);
 #endif

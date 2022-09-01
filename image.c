@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:24:10 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/31 16:38:05 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/01 23:22:34 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	img_draw(t_mlx *mlx)
 			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 1);
 		else
 			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 1);
-		proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 1);
+		//proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 1);
 	}
 	else
 	{
 		proy_conic(mlx, &mlx->map, &mlx->cam, 1);
-		proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 1);
+		//proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 1);
 	}
 	if (mlx->ui.rgbcircle)
 		color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
@@ -64,12 +64,12 @@ void	img_clean(t_mlx *mlx)
 			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 0);
 		else
 			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 0);
-		proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 0);
+		//proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 0);
 	}
 	else
 	{
 		proy_conic(mlx, &mlx->map, &mlx->cam, 0);
-		proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 0);
+		//proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 0);
 	}
 }
 

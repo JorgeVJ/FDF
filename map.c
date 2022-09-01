@@ -6,87 +6,81 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:18:52 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 17:20:49 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:33:12 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	**add_point(int **points, int size, t_point p, int rgb)
+int	chrcount(char *str)
 {
-	int	**temp;
 	int	i;
-	int	j;
+	int	count;
 
-	temp = malloc(sizeof(int *) * size);
-	i = 0;
-	while (points && i < size - 1)
+	i = -1;
+	count = 0;
+	while (str[++i])
 	{
-		temp[i] = malloc(sizeof(int) * 4);
-		j = -1;
-		while (++j <= 3)
-			temp[i][j] = points[i][j];
-		i++;
+		if (str[i] == ' ')
+			count++;
 	}
-	if (points)
-	{
-		free(points);
-		points = NULL;
-	}
-	temp[i] = malloc(sizeof(int) * 4);
-	temp[i][0] = p.x;
-	temp[i][1] = p.y;
-	temp[i][2] = p.z;
-	temp[i][3] = rgb;
-	return (temp);
+	return (count);
 }
 
-void	map_split(t_map *map, char **cotas)
+int	**map_dim(char *dir, int *width, int *height)
 {
-	char	**datos;
-	int		len;
+	int		file;
+	char	*line;
+	int		check;
+	int		**map;
 
-	datos = ft_split(cotas[map->height], ',');
-	len = datos_len(datos);
-	if (len == 1)
-		fill_one(map, datos);
-	else if (len == 2)
-		fill_two(map, datos);
-	else if (len == 4)
-		fill_four(map, datos);
-	if (datos)
+	*width = 0;
+	check = 0;
+	file = open(dir, O_RDONLY);
+	line = get_next_line(file);
+	while (line)
 	{
-		free (datos);
-		datos = NULL;
+		if (!check)
+		{
+			*height = chrcount(line);
+			check = 1;
+		}
+		line = get_next_line(file);
+		*width += 1;
 	}
+	*width -= 1;
+	close(file);
+	map = malloc(sizeof(int *) * (*width + 1) * (*height + 1));
+	return (map);
 }
 
 void	map_fill(t_map *map, char *dir)
 {
 	int		file;
 	char	*line;
-	char	**cotas;
+	int		pos;
+	t_point	p;
 
+	map->xyzc = map_dim(dir, &map->width, &map->height);
 	file = open(dir, O_RDONLY);
 	line = get_next_line(file);
+	p.x = 0;
 	while (line)
 	{
-		cotas = ft_split(line, ' ');
-		map->height = 0;
-		while (cotas[map->height])
+		pos = 0;
+		p.y = 0;
+		while (line[pos])
 		{
-			map_split(map, cotas);
+			point_create(map, map->size,
+				point_fill(p.x, p.y++, ft_atoi_pos(line, &pos)));
+			map->xyzc[map->size][3] = color_read(line, &pos);
 			map->size++;
-			map->height++;
 		}
-		map->width++;
-		ptr_be_free(cotas);
+		p.x++;
 		str_be_free(line);
 		line = get_next_line(file);
 	}
 	close(file);
-	map->height--;
-	map->width--;
 }
 
 void	map_scale(t_map *m, float scale)

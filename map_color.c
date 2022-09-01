@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:39:15 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 12:16:29 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:37:38 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ int	map_deltaz(t_map *map)
 			map->colormin = map->xyzc[i][3];
 	}	
 	return (max - min);
-}
-
-int	trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
 }
 
 void	to_rgb(t_map *map, int max, int min)
@@ -86,4 +81,19 @@ void	map_repaint(t_map *map)
 	while (++i < map->size)
 		map->xyzc[i][3] = map->colormin;
 	map_color(map);
+}
+
+int	color_read(char *line, int *pos)
+{
+	int	color;
+
+	color = 0xFF;
+	if (line[*pos] == ',')
+	{
+		*pos += 1;
+		color = atoi_hexa_pos(line, pos);
+	}
+	if (line[*pos] == ' ' || line[*pos] == '\n')
+		*pos += 1;
+	return (color);
 }

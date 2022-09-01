@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/31 16:49:55 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:10:03 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {
 	if (button == 4)
-		update_value_up(mlx, &mlx->cam.zoom, 0.1, INT_MAX);
+		update_value_up(mlx, &mlx->cam.zoom, 1, INT_MAX);
 	else if (button == 5 && mlx->cam.zoom - 1 > 0)
-		update_value_down(mlx, &mlx->cam.zoom, -0.1, 0);
+		update_value_down(mlx, &mlx->cam.zoom, -1, 0);
 	if (button == 1)
 		mouse_left(mlx, x, y);
 	else if (button == 2)

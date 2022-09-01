@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 01:02:24 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/26 14:11:06 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/01 22:39:15 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,9 @@ void	circle_draw(t_mlx *mlx, int color, int x, int y)
 		a += 1;
 	}
 	map_repaint(&mlx->map);
+}
+
+int	trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
 }
