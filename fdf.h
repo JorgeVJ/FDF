@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/01 22:07:36 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/02 11:55:07 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_cam {
 	double		angleh;
 	double		anglev;
 	double		dist;
+	double		zscale;
+	int			z_key;
 	int			auto_rot[4];
 	int			view;
 	t_point		pos;
@@ -89,10 +91,10 @@ typedef struct s_ui {
 	int			mouse_in;
 	int			x;
 	int			y;
-	t_cam		cube_cam;
-	t_map		cube_map;
 	int			**cube;
-	t_cam		cone_cam;
+	int			**cone;
+	t_cam		cam;
+	t_map		cube_map;
 	t_map		cone_map;
 	t_map		sphere_map;
 	int			animation;
@@ -166,4 +168,10 @@ int		ft_atoi_pos(char *str, int *pos);
 int		atoi_hexa_pos(char *str, int *pos);
 void	point_create(t_map *map, int point, t_point p);
 int		color_read(char *line, int *pos);
+void	cube_create(t_mlx *mlx);
+void	cone_create(t_mlx *mlx);
+void	auto_rotate(t_mlx *mlx, int key);
+void    rotate_cam(t_mlx *mlx, int x, int y);
+void    move_map(t_mlx *mlx, int x, int y);
+void	scale_z(t_mlx *mlx, int x, int y);
 #endif

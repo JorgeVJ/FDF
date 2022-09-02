@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 14:18:36 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 19:43:38 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/02 10:36:16 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ t_point	intersect(t_map *map, t_cam *cam, int point)
 	p.x = b.x + t * v.x;
 	p.y = b.y + t * v.y;
 	p.z = b.z + t * v.z;
-	return (p);
+	if (t > 0)
+		return (p);
+	else
+		return (b);
 }
 
 void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb)

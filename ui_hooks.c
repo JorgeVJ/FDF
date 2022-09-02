@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/01 22:10:03 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:09:40 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,16 @@ int	hook_keydown(int key, t_mlx *mlx)
 		free(mlx->map.xyzc);
 		exit(EXIT_SUCCESS);
 	}
-	else if (key == 2)
-		mlx->cam.auto_rot[0] = !mlx->cam.auto_rot[0];
-	else if (key == 1)
-		mlx->cam.auto_rot[2] = !mlx->cam.auto_rot[2];
-	else if (key == 0)
-		mlx->cam.auto_rot[1] = !mlx->cam.auto_rot[1];
-	else if (key == 13)
-		mlx->cam.auto_rot[3] = !mlx->cam.auto_rot[3];
+	else if ((key >= 0 && key <= 2) || key == 13)
+		auto_rotate(mlx, key);
 	else if (key == 12)
 		mlx->cam.view = !mlx->cam.view;
 	else if (key == 8)
 		update_value_up(mlx, (double *)(&mlx->cam.dist), 5, INT_MAX);
 	else if (key == 9)
 		update_value_down(mlx, (double *)(&mlx->cam.dist), -5, 10);
+	else if (key == 6)
+		mlx->cam.z_key = !mlx->cam.z_key;
 	img_draw(mlx);
 	return (0);
 }
@@ -47,23 +43,11 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 	else if (mlx->ui.mouse_in)
 		update_value_up(mlx, (double *)(&mlx->ui.mouse_in), 42, 1);
 	if (mlx->mouse.l && x < WIN_W && y < WIN_H && x > 0 && y > 0)
-	{
-		img_clean(mlx);
-		mlx->map.gap.x = mlx->map.gap.x + WIN_W / 2 + x - mlx->mouse.x;
-		mlx->map.gap.y = mlx->map.gap.y + WIN_H / 2 + y - mlx->mouse.y;
-		mlx->mouse.x = WIN_W / 2 + x;
-		mlx->mouse.y = WIN_H / 2 + y;
-		img_draw(mlx);
-	}
+		move_map(mlx, x, y);
 	else if (mlx->mouse.r && x < WIN_W && y < WIN_H && x > 0 && y > 0)
-	{
-		img_clean(mlx);
-		mlx->cam.angleh = mlx->cam.angleh + 0.01 * (mlx->mouse.x - x);
-		mlx->cam.anglev = mlx->cam.anglev - 0.01 * (mlx->mouse.y - y);
-		mlx->mouse.x = x;
-		mlx->mouse.y = y;
-		img_draw(mlx);
-	}
+		rotate_cam(mlx, x, y);
+	else if (mlx->cam.z_key)
+		scale_z(mlx, x, y);
 	return (0);
 }
 
@@ -71,7 +55,7 @@ int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {
 	if (button == 4)
 		update_value_up(mlx, &mlx->cam.zoom, 1, INT_MAX);
-	else if (button == 5 && mlx->cam.zoom - 1 > 0)
+	else if (button == 5 && mlx->cam.zoom - 2 > 0)
 		update_value_down(mlx, &mlx->cam.zoom, -1, 0);
 	if (button == 1)
 		mouse_left(mlx, x, y);

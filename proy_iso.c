@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:29:54 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/01 21:34:34 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/02 11:50:58 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ double	rotz(t_cam *cam, double x, double y, double xy)
 
 double	rotx(t_cam *cam, double y, double z)
 {
-	z *= -cam->zoom;
+	z *= -cam->zoom * cam->zscale;
 	return (z * cos(cam->anglev) + y * sin(cam->anglev));
 }
 
@@ -52,6 +52,8 @@ void	line(t_img *img, t_point a, t_point b, int trgb)
 	int	x;
 	int	y;
 
+	if (fabs(b.y - a.y) > WIN_H || fabs(b.x - a.x) > WIN_W)
+		return ;
 	if (fabs(b.x - a.x) > fabs(b.y - a.y))
 	{
 		x = fmin(a.x, b.x);

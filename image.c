@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:24:10 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/01 23:22:34 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/02 09:58:40 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ void	img_new(t_mlx *mlx)
 
 void	img_draw(t_mlx *mlx)
 {
-	mlx->ui.cube_cam = mlx->cam;
-	mlx->ui.cube_cam.zoom = 5;
+	mlx->ui.cam = mlx->cam;
+	mlx->ui.cam.zoom = 1;
 	if (mlx->cam.view)
 	{
 		if (!mlx->ui.animation)
 			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 1);
 		else
 			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 1);
-		//proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 1);
+		proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, &mlx->img, 1);
 	}
 	else
 	{
 		proy_conic(mlx, &mlx->map, &mlx->cam, 1);
-		//proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 1);
+		proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, &mlx->img, 1);
 	}
 	if (mlx->ui.rgbcircle)
 		color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
@@ -56,20 +56,20 @@ void	img_draw(t_mlx *mlx)
 void	img_clean(t_mlx *mlx)
 {
 	color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
-	mlx->ui.cube_cam = mlx->cam;
-	mlx->ui.cube_cam.zoom = 5;
+	mlx->ui.cam = mlx->cam;
+	mlx->ui.cam.zoom = 1;
 	if (mlx->cam.view)
 	{
 		if (!mlx->ui.animation)
 			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 0);
 		else
 			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 0);
-		//proy_iso(&mlx->ui.cube_map, &mlx->ui.cube_cam, &mlx->img, 0);
+		proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, &mlx->img, 0);
 	}
 	else
 	{
 		proy_conic(mlx, &mlx->map, &mlx->cam, 0);
-		//proy_iso(&mlx->ui.cone_map, &mlx->ui.cube_cam, &mlx->img, 0);
+		proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, &mlx->img, 0);
 	}
 }
 

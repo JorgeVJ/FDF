@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/01 22:39:31 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:14:12 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,28 @@
 
 void	fdf_ui_maps_init(t_mlx *mlx)
 {
-	mlx->ui.cube_map.dir = "UI/cube";
-	mlx->ui.cone_map.dir = "UI/cone";
+	mlx->ui.cube_map.dir = NULL;
+	mlx->ui.cube_map.width = 1;
+	mlx->ui.cube_map.height = 4;
+	mlx->ui.cube_map.size = 10;
+	mlx->ui.cube_map.colormin = 0xFFFFFF;
+	mlx->ui.cube_map.colormax = 0xFFFFFF;
 	mlx->ui.cube_map.gap.x = UI_X;
 	mlx->ui.cube_map.gap.y = UI_Y;
-	mlx->ui.cone_map.gap.x = UI_X;
-	mlx->ui.cone_map.gap.y = UI_Y;
 	mlx->ui.cube_map.xyzc = NULL;
-	mlx->ui.cube_map.xyzc = NULL;
-	mlx->ui.cube_map.xyzc = NULL;
-	mlx->ui.cone_map.xyzc = NULL;
-	mlx->ui.cube_map.size = 0;
-	mlx->ui.cone_map.size = 0;
-	mlx->ui.cube_map.scale = 1;
-	mlx->ui.cone_map.scale = 1;
-	map_fill(&mlx->ui.cube_map, mlx->ui.cube_map.dir);
-	map_fill(&mlx->ui.cone_map, mlx->ui.cone_map.dir);
+	mlx->ui.cone_map = mlx->ui.cube_map;
+	mlx->ui.cone_map.width = 1;
+	mlx->ui.cone_map.height = 8;
+	mlx->ui.cone_map.size = 18;
+	cube_create(mlx);
+	cone_create(mlx);
+	map_limits(&mlx->ui.cube_map);
+	map_limits(&mlx->ui.cone_map);
 }
 
-//	fdf_ui_maps_init(mlx);
-//	mlx->ui.cube_cam.zoom = 5;
-//	mlx->ui.cube_cam.dist = 25;
 void	fdf_interface_init(t_mlx *mlx)
 {
+	fdf_ui_maps_init(mlx);
 	mlx->ui.animation = 0;
 	mlx->mouse.l = 0;
 	mlx->mouse.r = 0;
@@ -63,8 +62,11 @@ void	fdf_cam_init(t_mlx *mlx)
 	mlx->cam.auto_rot[3] = 0;
 	mlx->cam.angleh = 0 * M_PI_4;
 	mlx->cam.anglev = 1 * M_PI_4;
+	mlx->cam.zscale = 1;
+	mlx->cam.z_key = 0;
 	mlx->cam.view = 1;
 	mlx->cam.dist = 300;
+	mlx->ui.cam = mlx->cam;
 }
 
 void	fdf_init(t_mlx *mlx, char *dir)

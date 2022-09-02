@@ -20,6 +20,7 @@ FUNCTIONS =		main.c				\
 				ui_colors.c			\
 				ui_images.c			\
 				ui_help.c			\
+				ui_icons.c			\
 				image.c				\
 				proy_iso.c			\
 				proy_conic.c		\
@@ -27,6 +28,7 @@ FUNCTIONS =		main.c				\
 				map_color.c			\
 				map_outils.c		\
 				be_free.c			\
+				ui_hooks_outils2.c	\
 				map.c
 FUNCTIONS_GNL = get_next_line.c			\
 				get_next_line_utils.c	
