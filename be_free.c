@@ -6,20 +6,18 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 08:44:34 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/08/30 09:00:30 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:55:25 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*int	be_free(...)
+/*void	be_free(...)
 {
-	size_t	i;
-	size_t	size;
 	va_list	args;
 
-	va_start(args, str);
-		size += ft_switchcase(args, str[i + 1]);
+	va_start(args, i);
+
 	va_end(args);
 	return (size);
 }*/

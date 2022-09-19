@@ -15,6 +15,7 @@ NAME = fdf
 CFLAGS = -Ofast -Wall -Wextra -Werror
 CC = gcc
 FUNCTIONS =		main.c				\
+				fdf_init.c			\
 				ui_hooks.c			\
 				ui_hooks_outils.c	\
 				ui_colors.c			\
@@ -54,11 +55,6 @@ re: fclean all
 pyramide:	re clean
 			make clean
 			./fdf test_maps/pyramide.fdf
-			#./fdf cube
-			#./fdf cone
-			#./fdf test_maps/julia.fdf
-			#./fdf test_maps/elem-fract.fdf
-			#./fdf test_maps/elem.fdf
 
 small:	re clean
 			make clean

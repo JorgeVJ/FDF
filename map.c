@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:18:52 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 10:20:50 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:06:49 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	**map_dim(char *dir, int *width, int *height)
 			*height = chrcount(line);
 			check = 1;
 		}
+		str_be_free(line);
 		line = get_next_line(file);
 		*width += 1;
 	}
