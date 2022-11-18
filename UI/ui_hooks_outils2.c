@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../src/fdf.h"
 
 void	auto_rotate(t_mlx *mlx, int key)
 {
-	if (key == 2)
+	if (key == KEY_D)
 		mlx->cam.auto_rot[0] = !mlx->cam.auto_rot[0];
-	else if (key == 1)
+	else if (key == KEY_S)
 		mlx->cam.auto_rot[2] = !mlx->cam.auto_rot[2];
-	else if (key == 0)
+	else if (key == KEY_A)
 		mlx->cam.auto_rot[1] = !mlx->cam.auto_rot[1];
-	else if (key == 13)
+	else if (key == KEY_W)
 		mlx->cam.auto_rot[3] = !mlx->cam.auto_rot[3];
 }
 
@@ -51,4 +51,12 @@ void	scale_z(t_mlx *mlx, int x, int y)
 	mlx->cam.zscale = mlx->cam.zscale + 0.01 * (mlx->mouse.y - y);
 	mlx->mouse.y = y;
 	img_draw(mlx);
+}
+
+int	hook_exit(t_mlx *mlx)
+{
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	free(mlx->map.xyzc);
+	exit(EXIT_SUCCESS);
+	return (0);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../src/fdf.h"
 
 void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames)
 {

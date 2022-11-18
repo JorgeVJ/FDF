@@ -6,11 +6,11 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 01:02:24 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/01 22:39:15 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/11/15 20:48:01 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../src/fdf.h"
 
 int	color_polar(float a, int d)
 {

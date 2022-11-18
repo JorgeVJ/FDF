@@ -6,31 +6,31 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 12:09:40 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:50:06 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../src/fdf.h"
 
 int	hook_keydown(int key, t_mlx *mlx)
 {
 	img_clean(mlx);
-	if (key >= 83 && key <= 93)
+	if (key >= NPD_1 && key <= NPD_9)
 		proyections(mlx, key);
-	else if (key == 53)
+	else if (key == KEY_ESC)
 	{
 		free(mlx->map.xyzc);
 		exit(EXIT_SUCCESS);
 	}
-	else if ((key >= 0 && key <= 2) || key == 13)
+	else if ((key >= KEY_A && key <= KEY_D) || key == KEY_W)
 		auto_rotate(mlx, key);
-	else if (key == 12)
+	else if (key == KEY_Q)
 		mlx->cam.view = !mlx->cam.view;
-	else if (key == 8)
+	else if (key == KEY_C)
 		update_value_up(mlx, (double *)(&mlx->cam.dist), 5, INT_MAX);
-	else if (key == 9)
+	else if (key == KEY_V)
 		update_value_down(mlx, (double *)(&mlx->cam.dist), -5, 10);
-	else if (key == 6)
+	else if (key == KEY_Z)
 		mlx->cam.z_key = !mlx->cam.z_key;
 	img_draw(mlx);
 	return (0);
@@ -53,13 +53,13 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 
 int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {
-	if (button == 4)
+	if (button == M_WUP)
 		update_value_up(mlx, &mlx->cam.zoom, 1, INT_MAX);
-	else if (button == 5 && mlx->cam.zoom - 2 > 0)
+	else if (button == M_WDO && mlx->cam.zoom - 2 > 0)
 		update_value_down(mlx, &mlx->cam.zoom, -1, 0);
-	if (button == 1)
+	if (button == M_LEFT)
 		mouse_left(mlx, x, y);
-	else if (button == 2)
+	else if (button == M_RIGHT)
 	{
 		mlx->mouse.r = 1;
 		mlx->mouse.y = y;
@@ -72,9 +72,9 @@ int	hook_mouseup(int button, int x, int y, t_mlx *mlx)
 {
 	(void)x;
 	(void)y;
-	if (button == 1)
+	if (button == M_LEFT)
 		update_value_up(mlx, (double *)(&mlx->mouse.l), 1, 1);
-	else if (button == 2)
+	else if (button == M_RIGHT)
 		mlx->mouse.r = 0;
 	return (0);
 }

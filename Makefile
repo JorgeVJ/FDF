@@ -14,38 +14,44 @@
 NAME = fdf
 CFLAGS = -Ofast -Wall -Wextra -Werror
 CC = gcc
+DIR_SRC	= ./src/
 FUNCTIONS =		main.c				\
 				fdf_init.c			\
-				ui_hooks.c			\
-				ui_hooks_outils.c	\
-				ui_colors.c			\
-				ui_images.c			\
-				ui_help.c			\
-				ui_icons.c			\
 				image.c				\
 				proy_iso.c			\
 				proy_conic.c		\
 				animate.c			\
 				map_color.c			\
 				map_outils.c		\
+				map.c				\
 				be_free.c			\
+				triangulate.c
+
+DIR_UI = ./UI/
+F_UI =			ui_hooks.c			\
+				ui_hooks_outils.c	\
 				ui_hooks_outils2.c	\
-				map.c
-FUNCTIONS_GNL = get_next_line.c			\
+				ui_colors.c			\
+				ui_images.c			\
+				ui_help.c			\
+				ui_icons.c
+
+DIR_GNL = ./src/gnl/
+F_GNL = 		get_next_line.c			\
 				get_next_line_utils.c	
-DIR_GNL = ./gnl/
 
-#GFUNCTIONS = $(addprefix $(DIR_GNL), ${FUNCTIONS_GNL})
-OBJS = ${FUNCTIONS:.c=.o}
-GOBJS = $(addprefix $(DIR_GNL), ${FUNCTIONS_GNL:.c=.o})
+#OBJS = ${FUNCTIONS:.c=.o}
+OBJS = $(addprefix $(DIR_SRC), ${FUNCTIONS:.c=.o})
+OBJS += $(addprefix $(DIR_GNL), ${F_GNL:.c=.o})
+OBJS += $(addprefix $(DIR_UI), ${F_UI:.c=.o})
 
-${NAME}:	${OBJS} ${GOBJS}
-			$(CC) $(CFLAGS) ${OBJS} ${GOBJS} libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+${NAME}:	${OBJS}
+			$(CC) $(CFLAGS) ${OBJS} src/libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 all: $(NAME)
 
 clean:
-			rm -f $(OBJS) $(GOBJS)
+			rm -f $(OBJS)
 
 fclean: clean
 			rm -f $(NAME)

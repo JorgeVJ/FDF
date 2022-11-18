@@ -10,31 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../src/fdf.h"
 
 void	proyections(t_mlx *mlx, int key)
 {
-	if (key == 84 || key == 86 || key == 88 || key == 91)
+	if (key == NPD_2 || key == NPD_4 || key == NPD_6 || key == NPD_8)
 		mlx->cam.anglev = 0;
-	else if (key == 87)
+	else if (key == NPD_5)
 		mlx->cam.anglev = M_PI_2;
-	else if (key == 89 || key == 92 || key == 83 || key == 85)
+	else if (key == NPD_7 || key == NPD_9 || key == NPD_1 || key == NPD_3)
 		mlx->cam.anglev = M_PI_4;
-	if (key == 88)
+	if (key == NPD_6)
 		mlx->cam.angleh = 0;
-	else if (key == 91)
+	else if (key == NPD_8)
 		mlx->cam.angleh = M_PI_2;
-	else if (key == 86)
+	else if (key == NPD_4)
 		mlx->cam.angleh = M_PI;
-	else if (key == 84)
+	else if (key == NPD_2)
 		mlx->cam.angleh = -M_PI_2;
-	else if (key == 89)
+	else if (key == NPD_7)
 		mlx->cam.angleh = M_PI_4;
-	else if (key == 92)
+	else if (key == NPD_9)
 		mlx->cam.angleh = 3 * M_PI_4;
-	else if (key == 83)
+	else if (key == NPD_1)
 		mlx->cam.angleh = 5 * M_PI_4;
-	else if (key == 85)
+	else if (key == NPD_3)
 		mlx->cam.angleh = 7 * M_PI_4;
 }
 

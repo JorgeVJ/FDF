@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:24:10 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 09:58:40 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:53:51 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ void	proy_iso(t_map *m, t_cam *cam, t_img *img, int trgb)
 		b = point_project(cam, b, m->gap.x, m->gap.y);
 		if (i > 0 && (i % (m->height + 1)) && !point_overlap(a, b))
 			line (img, a, b, trgb * fmax(m->xyzc[i][3], m->xyzc[i - 1][3]));
-		a.x = b.x;
-		a.y = b.y;
+		a = b;
 		if (i + m->height + 1 < m->size)
 		{
 			b = point_move(m, i + m->height + 1, point_fill(-(m->max.x

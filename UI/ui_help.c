@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../src/fdf.h"
 
 void	key_put(t_mlx *mlx, char *texto, int x, int y)
 {
