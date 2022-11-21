@@ -24,7 +24,7 @@ t_point	point_move(t_map *m, int point, t_point d)
 
 t_point	point_project(t_cam *cam, t_point a, int gapx, int gapy)
 {
-	int		d;
+	double	d;
 	t_point	p;
 
 	d = cam->zoom;

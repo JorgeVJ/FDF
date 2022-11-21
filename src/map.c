@@ -51,6 +51,7 @@ int	**map_dim(char *dir, int *width, int *height)
 	}
 	*width -= 1;
 	close(file);
+	map_error(*height, *width);
 	map = malloc(sizeof(int *) * (*width + 1) * (*height + 1));
 	return (map);
 }

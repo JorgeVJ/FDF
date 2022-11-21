@@ -19,6 +19,7 @@ int	ft_atoi_pos(char *str, int *pos)
 
 	sum = 0;
 	sign = 1;
+	str_error(str, *pos);
 	if (str[*pos] == '-' || str[*pos] == '+')
 	{
 		if (str[*pos] == '-')

@@ -14,6 +14,7 @@
 NAME = fdf
 CFLAGS = -Ofast -Wall -Wextra -Werror
 CC = gcc
+DIR_LIB = ./src/libft/
 DIR_SRC	= ./src/
 FUNCTIONS =		main.c				\
 				fdf_init.c			\
@@ -23,6 +24,7 @@ FUNCTIONS =		main.c				\
 				animate.c			\
 				map_color.c			\
 				map_outils.c		\
+				map_error.c			\
 				map.c				\
 				be_free.c			\
 				triangulate.c
@@ -39,24 +41,30 @@ F_UI =			ui_hooks.c			\
 DIR_GNL = ./src/gnl/
 F_GNL = 		get_next_line.c			\
 				get_next_line_utils.c	
-
+	
 #OBJS = ${FUNCTIONS:.c=.o}
 OBJS = $(addprefix $(DIR_SRC), ${FUNCTIONS:.c=.o})
 OBJS += $(addprefix $(DIR_GNL), ${F_GNL:.c=.o})
 OBJS += $(addprefix $(DIR_UI), ${F_UI:.c=.o})
 
-${NAME}:	${OBJS}
-			$(CC) $(CFLAGS) ${OBJS} src/libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-all: $(NAME)
+${NAME}:	${OBJS}
+			$(CC) $(CFLAGS) ${OBJS} $(DIR_LIB)libft.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+
+all: libft	$(NAME)
 
 clean:
 			rm -f $(OBJS)
+			make clean -C $(DIR_LIB)
 
 fclean: clean
 			rm -f $(NAME)
+			make fclean -C $(DIR_LIB)
 
 re: fclean all
+
+libft:	$(DIR_LIB)
+			make -C $(DIR_LIB)
 
 pyramide:	re clean
 			make clean
@@ -64,7 +72,8 @@ pyramide:	re clean
 
 small:	re clean
 			make clean
-			./fdf test_maps/10-2.fdf
+			./fdf test_maps/test.fdf
+
 pylone:	re clean
 			make clean
 			./fdf test_maps/pylone.fdf

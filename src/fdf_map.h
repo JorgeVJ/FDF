@@ -23,6 +23,8 @@ void	map_repaint(t_map *map);
 void	map_limits(t_map *m);
 void	map_scale(t_map *map, float scale);
 void	map_free(int **map);
+void	map_error(int height, int width);
+void	str_error(char *str, int pos);
 int		**map_size(char *dir, int *width, int *height);
 void	move_map(t_mlx *mlx, int x, int y);
 #endif

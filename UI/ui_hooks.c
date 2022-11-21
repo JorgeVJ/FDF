@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/16 11:50:06 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:16:20 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	hook_keydown(int key, t_mlx *mlx)
 	if (key >= NPD_1 && key <= NPD_9)
 		proyections(mlx, key);
 	else if (key == KEY_ESC)
-	{
-		free(mlx->map.xyzc);
 		exit(EXIT_SUCCESS);
-	}
 	else if ((key >= KEY_A && key <= KEY_D) || key == KEY_W)
 		auto_rotate(mlx, key);
 	else if (key == KEY_Q)
@@ -54,9 +51,9 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 int	hook_mousedown(int button, int x, int y, t_mlx *mlx)
 {
 	if (button == M_WUP)
-		update_value_up(mlx, &mlx->cam.zoom, 1, INT_MAX);
-	else if (button == M_WDO && mlx->cam.zoom - 2 > 0)
-		update_value_down(mlx, &mlx->cam.zoom, -1, 0);
+		update_value_up(mlx, &mlx->cam.zoom, 0.2, INT_MAX);
+	else if (button == M_WDO && mlx->cam.zoom - 0.3 > 0)
+		update_value_down(mlx, &mlx->cam.zoom, -0.2, 0);
 	if (button == M_LEFT)
 		mouse_left(mlx, x, y);
 	else if (button == M_RIGHT)

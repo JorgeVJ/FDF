@@ -79,6 +79,7 @@ void	mouse_left(t_mlx *mlx, int x, int y)
 		&& y < mlx->ui.y && mlx->ui.rgbcircle)
 	{
 		mlx->map.colormin = color_rgb(mlx, x, y, 1);
+		map_repaint(&mlx->map);
 		img_draw(mlx);
 	}
 	else if (x > UI_X * 2 && y < mlx->ui.y - 25)

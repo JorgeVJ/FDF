@@ -93,6 +93,7 @@ int	color_read(char *line, int *pos)
 		*pos += 1;
 		color = atoi_hexa_pos(line, pos);
 	}
+	str_error(line, *pos);
 	if (line[*pos] == ' ' || line[*pos] == '\n')
 		*pos += 1;
 	return (color);

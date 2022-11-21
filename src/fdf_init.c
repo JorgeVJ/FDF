@@ -56,11 +56,11 @@ void	fdf_interface_init(t_mlx *mlx)
 void	fdf_cam_init(t_mlx *mlx)
 {
 	mlx->cam.zoom = 1 + 420 / (1 + fabs(mlx->map.max.x - mlx->map.min.x));
-	mlx->cam.auto_rot[0] = 1;
+	mlx->cam.auto_rot[0] = 0;
 	mlx->cam.auto_rot[1] = 0;
 	mlx->cam.auto_rot[2] = 0;
 	mlx->cam.auto_rot[3] = 0;
-	mlx->cam.angleh = 0 * M_PI_4;
+	mlx->cam.angleh = 1 * M_PI_4;
 	mlx->cam.anglev = 1 * M_PI_4;
 	mlx->cam.zscale = 1;
 	mlx->cam.z_key = 0;

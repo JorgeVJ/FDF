@@ -68,7 +68,6 @@ void	circle_draw(t_mlx *mlx, int color, int x, int y)
 				color);
 		a += 1;
 	}
-	map_repaint(&mlx->map);
 }
 
 int	trgb(int t, int r, int g, int b)

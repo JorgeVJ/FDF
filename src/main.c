@@ -12,6 +12,14 @@
 
 #include "fdf.h"
 
+/*
+void	leaks(void)
+{
+	system("leaks fdf");
+}
+*/
+	// atexit(leaks);
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
