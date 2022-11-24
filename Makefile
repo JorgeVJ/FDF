@@ -51,6 +51,7 @@ OBJS += $(addprefix $(DIR_UI), ${F_UI:.c=.o})
 ${NAME}:	${OBJS}
 			$(CC) $(CFLAGS) ${OBJS} $(DIR_LIB)libft.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
+#all: $(NAME)
 all: libft	$(NAME)
 
 clean:
@@ -77,3 +78,7 @@ small:	re clean
 pylone:	re clean
 			make clean
 			./fdf test_maps/pylone.fdf
+
+world:	re clean
+			make clean
+			./fdf test_maps/MGDS_WHOLE_WORLD_OCEAN1_L.fdf

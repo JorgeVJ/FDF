@@ -22,13 +22,24 @@ void	sphere_init(t_mlx *mlx)
 	mlx->ui.sphere_map.xyzc = malloc(sizeof(int *) * mlx->map.size);
 }
 
-void	sphere_fill(int	**sphere, int point, t_point angle)
+void	sphere_fill(int	**sphere, int point, t_point angle, int z)
 {
 	sphere[point] = malloc(sizeof(int) * 4);
-	sphere[point][0] = (int)(42 * sin(angle.x) * cos(angle.z) + 42);
-	sphere[point][1] = (int)(42 * cos(angle.x) * cos(angle.z) + 42);
-	sphere[point][2] = (int)(42 * sin(angle.z));
-	sphere[point][3] = 0xFF;
+	sphere[point][0] = (int)((420 + z / 600) * sin(angle.x)
+			* cos(angle.z) + 210);
+	sphere[point][1] = (int)((420 + z / 600) * cos(angle.x)
+			* cos(angle.z) + 210);
+	sphere[point][2] = (int)((420 + z / 600) * sin(angle.z));
+	if (z < -600)
+		sphere[point][3] = 0xE0002080;
+	else if (z < -300)
+		sphere[point][3] = 0xFF;
+	else if (z < 0)
+		sphere[point][3] = 0x65;
+	else if (z < 2000)
+		sphere[point][3] = 0x6500;
+	else
+		sphere[point][3] = 0xFFFFFF;
 }
 
 void	sphere_create(t_mlx *mlx)
@@ -40,14 +51,14 @@ void	sphere_create(t_mlx *mlx)
 
 	sphere_init(mlx);
 	sphere = mlx->ui.sphere_map.xyzc;
-	steps.x = 2 * M_PI / (mlx->map.width + 1);
-	steps.z = 2 * M_PI / (mlx->map.height + 1);
+	steps.x = 2 * M_PI / (mlx->map.height - 1);
+	steps.z = 1 * M_PI / (mlx->map.width);
 	angle.x = 0;
 	angle.z = -M_PI_2;
 	i = 0;
 	while (i < mlx->map.size)
 	{
-		sphere_fill(sphere, i, angle);
+		sphere_fill(sphere, i, angle, mlx->map.xyzc[i][2]);
 		angle.x += steps.x;
 		if (i > 0 && !(i % (mlx->map.height + 1)))
 		{

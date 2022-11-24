@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 14:57:14 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/10/06 11:07:39 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/11/22 11:57:28 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fdf_interface_init(t_mlx *mlx)
 void	fdf_cam_init(t_mlx *mlx)
 {
 	mlx->cam.zoom = 1 + 420 / (1 + fabs(mlx->map.max.x - mlx->map.min.x));
-	mlx->cam.auto_rot[0] = 0;
+	mlx->cam.auto_rot[0] = 1;
 	mlx->cam.auto_rot[1] = 0;
 	mlx->cam.auto_rot[2] = 0;
 	mlx->cam.auto_rot[3] = 0;

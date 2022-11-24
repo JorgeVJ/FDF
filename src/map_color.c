@@ -6,7 +6,7 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:39:15 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 00:34:14 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/11/21 21:47:16 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	map_deltaz(t_map *map)
 		else
 			map->colormin = map->xyzc[i][3];
 	}	
+	if (!(max - min))
+		return (1);
 	return (max - min);
 }
 

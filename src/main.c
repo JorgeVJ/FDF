@@ -12,18 +12,21 @@
 
 #include "fdf.h"
 
-/*
-void	leaks(void)
+/*void	leaks(void)
 {
 	system("leaks fdf");
-}
-*/
-	// atexit(leaks);
+}*/
+	//atexit(leaks);
 
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
+	if (argc > 2 || argc < 2)
+	{
+		write(1, "Are you introducing one map?", 28);
+		return (0);
+	}
 	fdf_init(&mlx, argv[argc * 0 + 1]);
 	mlx_hook(mlx.win, 4, 0, hook_mousedown, &mlx);
 	mlx_hook(mlx.win, 5, 0, hook_mouseup, &mlx);
