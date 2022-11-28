@@ -12,7 +12,7 @@
 
 #ifndef FDF_H
 # define FDF_H
-# define WIN_W	    1960
+# define WIN_W	    1024
 # define WIN_H	    1024
 # define KEY_A      0
 # define KEY_S      1

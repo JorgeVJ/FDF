@@ -6,16 +6,16 @@
 /*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/28 16:24:27 by jvasquez         ###   ########.fr       */
+/*   Updated: 2022/11/25 20:17:11 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*void	leaks(void)
+void	leaks(void)
 {
 	system("leaks fdf");
-}*/
+}
 	//atexit(leaks);
 
 int	main(int argc, char **argv)

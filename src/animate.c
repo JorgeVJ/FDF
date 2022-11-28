@@ -52,9 +52,9 @@ void	sphere_create(t_mlx *mlx)
 	sphere_init(mlx);
 	sphere = mlx->ui.sphere_map.xyzc;
 	steps.x = 2 * M_PI / (mlx->map.height - 1);
-	steps.z = 1 * M_PI / (mlx->map.width);
+	steps.z = -1 * M_PI / (mlx->map.width);
 	angle.x = 0;
-	angle.z = -M_PI_2;
+	angle.z = M_PI_2;
 	i = 0;
 	while (i < mlx->map.size)
 	{
