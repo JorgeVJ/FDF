@@ -47,7 +47,8 @@ double	rotx(t_cam *cam, double y, double z)
 	return (z * cos(cam->anglev) + y * sin(cam->anglev));
 }
 
-void	line(t_img *img, t_point a, t_point b, int trgb)
+// void	line(t_img *img, t_point a, t_point b, int trgb)
+void	line(t_mlx *m, t_point a, t_point b, int trgb)
 {
 	int	x;
 	int	y;
@@ -60,7 +61,7 @@ void	line(t_img *img, t_point a, t_point b, int trgb)
 		while (++x < fmax(a.x, b.x))
 		{
 			y = (b.y - a.y) * (x - a.x) / (b.x - a.x) + a.y;
-			my_mlx_pixel_put(img, (int)x, (int)y, trgb);
+			my_mlx_pixel_put(&m->img, (int)x, (int)y, trgb);
 		}
 	}
 	else if (fabs(b.x - a.x) <= fabs(b.y - a.y))
@@ -69,7 +70,12 @@ void	line(t_img *img, t_point a, t_point b, int trgb)
 		while (++x < fmax(a.y, b.y))
 		{
 			y = (b.x - a.x) * (x - a.y) / (b.y - a.y) + a.x;
-			my_mlx_pixel_put(img, (int)y, (int)x, trgb);
+			my_mlx_pixel_put(&m->img, (int)y, (int)x, trgb);
 		}
 	}
 }
+
+// m->cleaner[m->p++] = x;
+// m->cleaner[m->p++] = y;
+// m->cleaner[m->p++] = y;
+// m->cleaner[m->p++] = x;

@@ -22,15 +22,15 @@ typedef struct s_img {
 }				t_img;
 
 typedef struct s_point {
-	double	x;
-	double	y;
-	double	z;
+	float	x;
+	float	y;
+	float	z;
 	int		c;
 }				t_point;
 
 typedef struct s_map {
-	char	*dir;
-	int		scale;
+	int		id;
+	float	scale;
 	int		width;
 	int		height;
 	int		size;
@@ -41,7 +41,8 @@ typedef struct s_map {
 	t_point	gap;
 	int		cmax[3];
 	int		cmin[3];
-	int		**xyzc;
+	float	**xyzc;
+
 }				t_map;
 
 typedef struct s_cam {
@@ -53,6 +54,8 @@ typedef struct s_cam {
 	int			z_key;
 	int			auto_rot[4];
 	int			view;
+	int			param1;
+	int			param2;
 	t_point		pos;
 }				t_cam;
 
@@ -61,6 +64,8 @@ typedef struct s_mouse {
 	int	r;
 	int	x;
 	int	y;
+	int	posx;
+	int	posy;
 }				t_mouse;
 
 typedef struct s_frames {
@@ -78,8 +83,6 @@ typedef struct s_ui {
 	int			mouse_in;
 	int			x;
 	int			y;
-	int			**cube;
-	int			**cone;
 	t_cam		cam;
 	t_map		cube_map;
 	t_map		cone_map;
@@ -103,8 +106,11 @@ typedef struct s_trian {
 typedef struct s_mlx {
 	void	*mlx;
 	void	*win;
+	int		*cleaner;
+	int		p;
 	t_img	img;
 	t_map	map;
+	t_map	sphere;
 	t_cam	cam;
 	t_mouse	mouse;
 	t_ui	ui;

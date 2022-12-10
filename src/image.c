@@ -12,6 +12,7 @@
 
 #include "fdf.h"
 
+// Change the color of a pixel at given coords.
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
@@ -22,6 +23,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+// Creates a new image for mlx library.
 void	img_new(t_mlx *mlx)
 {
 	mlx->img.img = mlx_new_image(mlx->mlx, WIN_W - 60, WIN_H);
@@ -29,22 +31,26 @@ void	img_new(t_mlx *mlx)
 			&mlx->img.line_length, &mlx->img.endian);
 }
 
+// wave(mlx);
+// Draw the map and icons depending on the active view.
 void	img_draw(t_mlx *mlx)
 {
 	mlx->ui.cam = mlx->cam;
 	mlx->ui.cam.zoom = 1;
-	if (mlx->cam.view)
+	if (mlx->cam.view == 1)
 	{
-		if (!mlx->ui.animation)
-			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 1);
-		else
-			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 1);
-		proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, &mlx->img, 1);
+		proy_iso(&mlx->map, &mlx->cam, 1, mlx);
+		proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, 1, mlx);
+	}
+	else if (mlx->cam.view == 0)
+	{
+		proy_conic(mlx, &mlx->map, &mlx->cam, 1);
+		proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, 1, mlx);
 	}
 	else
 	{
-		proy_conic(mlx, &mlx->map, &mlx->cam, 1);
-		proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, &mlx->img, 1);
+		proy_iso(&mlx->sphere, &mlx->cam, 1, mlx);
+		proy_iso(&mlx->ui.sphere_map, &mlx->ui.cam, 1, mlx);
 	}
 	if (mlx->ui.rgbcircle)
 		color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
@@ -53,27 +59,47 @@ void	img_draw(t_mlx *mlx)
 	put_data(mlx);
 }
 
+// Another version to clean all the maps, better for small maps.
+/*void	img_clean(t_mlx *mlx)
+{
+	int	x;
+	int	y;
+
+	mlx->p--;
+	while (mlx->p > 1)
+	{
+		y = mlx->cleaner[mlx->p--];
+		x = mlx->cleaner[mlx->p];
+		my_mlx_pixel_put(&mlx->img, x, y, 0);
+	}
+}*/
+
+// Recalculate map to paint it black (to be optimized).
 void	img_clean(t_mlx *mlx)
 {
 	color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
 	mlx->ui.cam = mlx->cam;
 	mlx->ui.cam.zoom = 1;
-	if (mlx->cam.view)
+	if (mlx->cam.view == 1)
 	{
-		if (!mlx->ui.animation)
-			proy_iso(&mlx->map, &mlx->cam, &mlx->img, 0);
-		else
-			proy_iso(&mlx->ui.sphere_map, &mlx->cam, &mlx->img, 0);
-		proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, &mlx->img, 0);
+		proy_iso(&mlx->map, &mlx->cam, 0, mlx);
+		proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, 0, mlx);
+	}
+	else if (mlx->cam.view == 0)
+	{
+		proy_conic(mlx, &mlx->map, &mlx->cam, 0);
+		proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, 0, mlx);
 	}
 	else
 	{
-		proy_conic(mlx, &mlx->map, &mlx->cam, 0);
-		proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, &mlx->img, 0);
+		proy_iso(&mlx->sphere, &mlx->cam, 0, mlx);
+		proy_iso(&mlx->ui.sphere_map, &mlx->ui.cam, 0, mlx);
 	}
 }
 
-void	proy_iso(t_map *m, t_cam *cam, t_img *img, int trgb)
+// void	proy_iso(t_map *m, t_cam *cam, t_img *img, int trgb)
+// Isometric projection
+void	proy_iso(t_map *m, t_cam *cam, int trgb, t_mlx *mm)
 {
 	int		i;
 	t_point	a;
@@ -86,15 +112,16 @@ void	proy_iso(t_map *m, t_cam *cam, t_img *img, int trgb)
 		b = point_move(m, i, point_fill(-(m->max.x - m->min.x) / 2,
 					-(m->max.y - m->min.y) / 2, 0));
 		b = point_project(cam, b, m->gap.x, m->gap.y);
-		if (i > 0 && (i % (m->height + 1)) && !point_overlap(a, b))
-			line (img, a, b, trgb * fmax(m->xyzc[i][3], m->xyzc[i - 1][3]));
+		if (check_paint(m, cam, i) && i > 0 && (i % (m->height + 1))
+			&& !point_overlap(a, b))
+			line (mm, a, b, trgb * fmax(m->xyzc[i][3], m->xyzc[i - 1][3]));
 		a = b;
-		if (i + m->height + 1 < m->size)
+		if (check_paint(m, cam, i) && i + m->height + 1 < m->size)
 		{
 			b = point_move(m, i + m->height + 1, point_fill(-(m->max.x
 							- m->min.x) / 2, -(m->max.y - m->min.y) / 2, 0));
 			b = point_project(cam, b, m->gap.x, m->gap.y);
-			line(img, a, b, trgb * fmax(m->xyzc[i][3],
+			line(mm, a, b, trgb * fmax(m->xyzc[i][3],
 					m->xyzc[i + m->height + 1][3]));
 		}
 		i++;

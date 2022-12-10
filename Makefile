@@ -12,13 +12,14 @@
 # **************************************************************************** #
 
 NAME = fdf
-CFLAGS = -Ofast -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CC = gcc
 DIR_LIB = ./src/libft/
 DIR_SRC	= ./src/
 FUNCTIONS =		main.c				\
 				fdf_init.c			\
 				image.c				\
+				painting.c			\
 				proy_iso.c			\
 				proy_conic.c		\
 				animate.c			\
@@ -33,6 +34,7 @@ DIR_UI = ./UI/
 F_UI =			ui_hooks.c			\
 				ui_hooks_outils.c	\
 				ui_hooks_outils2.c	\
+				ui_vars_update.c	\
 				ui_colors.c			\
 				ui_images.c			\
 				ui_help.c			\
@@ -48,7 +50,7 @@ OBJS += $(addprefix $(DIR_GNL), ${F_GNL:.c=.o})
 OBJS += $(addprefix $(DIR_UI), ${F_UI:.c=.o})
 
 
-${NAME}:	${OBJS}
+${NAME}:	${OBJS} libft
 			$(CC) $(CFLAGS) ${OBJS} $(DIR_LIB)libft.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 #all: $(NAME)
@@ -67,18 +69,14 @@ re: fclean all
 libft:	$(DIR_LIB)
 			make -C $(DIR_LIB)
 
-pyramide:	re clean
-			make clean
+pyramide:	$(NAME)
 			./fdf test_maps/pyramide.fdf
 
-small:	re clean
-			make clean
+small:		$(NAME)
 			./fdf test_maps/test.fdf
 
-pylone:	re clean
-			make clean
+pylone:		$(NAME)
 			./fdf test_maps/pylone.fdf
 
-world:	re clean
-			make clean
-			./fdf test_maps/MGDS_WHOLE_WORLD_OCEAN1_L.fdf
+world:		$(NAME)
+			./fdf test_maps/World.fdf

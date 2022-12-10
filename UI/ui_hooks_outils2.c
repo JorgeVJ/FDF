@@ -24,31 +24,39 @@ void	auto_rotate(t_mlx *mlx, int key)
 		mlx->cam.auto_rot[3] = !mlx->cam.auto_rot[3];
 }
 
-void	rotate_cam(t_mlx *mlx, int x, int y)
+void	rotate_cam(t_mlx *m, int x, int y)
 {
-	img_clean(mlx);
-	mlx->cam.angleh = mlx->cam.angleh + 0.01 * (mlx->mouse.x - x);
-	mlx->cam.anglev = mlx->cam.anglev - 0.01 * (mlx->mouse.y - y);
-	mlx->mouse.x = x;
-	mlx->mouse.y = y;
-	img_draw(mlx);
+	img_clean(m);
+	update_value_up(m, &m->cam.anglev, -0.01 * (m->mouse.y - y), 2 * M_PI);
+	update_value_up(m, &m->cam.angleh, 0.01 * (m->mouse.x - x), 2 * M_PI);
+	m->mouse.x = x;
+	m->mouse.y = y;
+	img_draw(m);
 }
 
 void	move_map(t_mlx *mlx, int x, int y)
 {
 	img_clean(mlx);
-	mlx->map.gap.x = mlx->map.gap.x + WIN_W / 2 + x - mlx->mouse.x;
-	mlx->map.gap.y = mlx->map.gap.y + WIN_H / 2 + y - mlx->mouse.y;
-	mlx->mouse.x = WIN_W / 2 + x;
-	mlx->mouse.y = WIN_H / 2 + y;
+	mlx->map.gap.x = mlx->map.gap.x + x - mlx->mouse.x;
+	mlx->map.gap.y = mlx->map.gap.y + y - mlx->mouse.y;
+	mlx->mouse.x = x;
+	mlx->mouse.y = y;
 	img_draw(mlx);
 }
 
 void	scale_z(t_mlx *mlx, int x, int y)
-{		
+{
+	static float	scale = 1;
+
 	(void)x;
 	img_clean(mlx);
 	mlx->cam.zscale = mlx->cam.zscale + 0.01 * (mlx->mouse.y - y);
+	scale = scale + 0.01 * (mlx->mouse.y - y);
+	if (mlx->cam.view == 2)
+	{
+		mlx->cam.zscale = 1;
+		sphere_create(&mlx->sphere, 150, mapz_to_displacement(mlx->map, scale));
+	}
 	mlx->mouse.y = y;
 	img_draw(mlx);
 }

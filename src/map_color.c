@@ -12,26 +12,22 @@
 
 #include "fdf.h"
 
-int	map_deltaz(t_map *map)
+int	map_deltaz(t_map map)
 {
 	int	i;
 	int	max;
 	int	min;
 
-	max = -999;
-	min = 999;
+	max = INT_MIN;
+	min = INT_MAX;
 	i = -1;
-	while (++i < map->size)
+	while (++i < map.size)
 	{
-		if (max < map->xyzc[i][2])
-			max = map->xyzc[i][2];
+		if (max < map.xyzc[i][2])
+			max = map.xyzc[i][2];
 		else
-			min = map->xyzc[i][2];
-		if (map->colormax < map->xyzc[i][3])
-			map->colormax = map->xyzc[i][3];
-		else
-			map->colormin = map->xyzc[i][3];
-	}	
+			min = map.xyzc[i][2];
+	}
 	if (!(max - min))
 		return (1);
 	return (max - min);
@@ -55,7 +51,7 @@ void	map_color(t_map *map)
 	to_rgb(map, map->colormax, map->colormin);
 	i = -1;
 	while (++i <= 2)
-			step[i] = (map->cmax[i] - map->cmin[i]) / map_deltaz(map);
+			step[i] = (map->cmax[i] - map->cmin[i]) / map_deltaz(*map);
 	i = -1;
 	while (++i < map->size)
 	{
@@ -63,14 +59,14 @@ void	map_color(t_map *map)
 		{
 			if (map->colormin < map->colormax)
 				map->xyzc[i][3] = trgb(0,
-						map->cmin[0] + abs(map->xyzc[i][2]) * step[0],
-						map->cmin[1] + abs(map->xyzc[i][2]) * step[1],
-						map->cmin[2] + abs(map->xyzc[i][2]) * step[2]);
+						map->cmin[0] + fabs(map->xyzc[i][2]) * step[0],
+						map->cmin[1] + fabs(map->xyzc[i][2]) * step[1],
+						map->cmin[2] + fabs(map->xyzc[i][2]) * step[2]);
 			else
 				map->xyzc[i][3] = trgb(0,
-						map->cmax[0] + abs(map->xyzc[i][2]) * step[0],
-						map->cmax[1] + abs(map->xyzc[i][2]) * step[1],
-						map->cmax[2] + abs(map->xyzc[i][2]) * step[2]);
+						map->cmax[0] + fabs(map->xyzc[i][2]) * step[0],
+						map->cmax[1] + fabs(map->xyzc[i][2]) * step[1],
+						map->cmax[2] + fabs(map->xyzc[i][2]) * step[2]);
 		}
 	}
 }

@@ -27,12 +27,12 @@ int	chrcount(char *str)
 	return (count);
 }
 
-int	**map_dim(char *dir, int *width, int *height)
+// Open a map file and read it to get dimentions of the map.
+void	map_load_dim(char *dir, int *width, int *height)
 {
 	int		file;
 	char	*line;
 	int		check;
-	int		**map;
 
 	*width = 0;
 	check = 0;
@@ -52,18 +52,17 @@ int	**map_dim(char *dir, int *width, int *height)
 	*width -= 1;
 	close(file);
 	map_error(*height, *width);
-	map = malloc(sizeof(int *) * (*width + 1) * (*height + 1));
-	return (map);
 }
 
-void	map_fill(t_map *map, char *dir)
+void	map_fill_from_file(t_map *map, char *dir)
 {
 	int		file;
 	char	*line;
 	int		pos;
 	t_point	p;
+	int		point;
 
-	map->xyzc = map_dim(dir, &map->width, &map->height);
+	point = 0;
 	file = open(dir, O_RDONLY);
 	line = get_next_line(file);
 	p.x = 0;
@@ -73,10 +72,9 @@ void	map_fill(t_map *map, char *dir)
 		p.y = 0;
 		while (line[pos])
 		{
-			point_create(map, map->size,
+			point_create(map, point,
 				point_fill(p.x, p.y++, ft_atoi_pos(line, &pos)));
-			map->xyzc[map->size][3] = color_read(line, &pos);
-			map->size++;
+			map->xyzc[point++][3] = color_read(line, &pos);
 		}
 		p.x++;
 		str_be_free(line);
@@ -106,6 +104,8 @@ void	map_limits(t_map *m)
 	m->min.x = INT_MAX;
 	m->max.y = INT_MIN;
 	m->min.y = INT_MAX;
+	m->max.z = INT_MIN;
+	m->min.z = INT_MAX;
 	i = 0;
 	while (i < m->size)
 	{
@@ -117,6 +117,10 @@ void	map_limits(t_map *m)
 			m->min.y = m->xyzc[i][1];
 		else if (m->xyzc[i][1] > m->max.y)
 			m->max.y = m->xyzc[i][1];
+		if (m->xyzc[i][2] < m->min.z)
+			m->min.z = m->xyzc[i][2];
+		else if (m->xyzc[i][2] > m->max.z)
+			m->max.z = m->xyzc[i][2];
 		i++;
 	}
 }

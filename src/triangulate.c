@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-t_trian	triangle(t_mlx *mlx, int i)
+/*t_trian	triangle(t_mlx *mlx, int i)
 {
 	t_trian	t;
 
@@ -38,4 +38,4 @@ void	fill_face(t_mlx *mlx, t_trian t)
 	line (&mlx->img, t.a, t.b, 0xFFFFFF);
 	line (&mlx->img, t.b, t.c, 0xFFFFFF);
 	line (&mlx->img, t.a, t.c, 0xFFFFFF);
-}
+}*/

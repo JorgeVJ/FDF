@@ -16,12 +16,12 @@ void	leaks(void)
 {
 	system("leaks fdf");
 }
-	//atexit(leaks);
 
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
+	atexit(leaks);
 	if (argc > 2 || argc < 2)
 	{
 		write(1, "Are you introducing one map?", 28);

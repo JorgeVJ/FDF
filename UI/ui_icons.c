@@ -12,14 +12,14 @@
 
 #include "../src/fdf.h"
 
-void	cube_create(t_mlx *mlx)
+void	cube_create(t_map *grid, int a)
 {
-	int	i;
-	int	j;
-	int	point;
-	int	**cube;
+	int		i;
+	int		j;
+	int		point;
+	float	**cube;
 
-	cube = malloc(sizeof(int *) * 10);
+	cube = grid->xyzc;
 	j = -1;
 	point = 0;
 	while (++j < 2)
@@ -27,39 +27,73 @@ void	cube_create(t_mlx *mlx)
 		i = -1;
 		while (++i < 5)
 		{
-			cube[point] = malloc(sizeof(int) * 4);
-			cube[point][0] = j * 40;
-			cube[point][1] = !((i - 2) * (i - 3)) * 40;
-			cube[point][2] = !((i - 1) * (i - 2)) * 40;
+			cube[point][0] = j * a;
+			cube[point][1] = !((i - 2) * (i - 3)) * a;
+			cube[point][2] = !((i - 1) * (i - 2)) * a - a / 2;
 			cube[point][3] = 0xFFFFFF;
 			point++;
 		}
 	}
-	mlx->ui.cube_map.xyzc = cube;
 }
 
-void	cone_create(t_mlx *mlx)
+// Creates a Cone with height = h and base radius = r, filling a grid given.
+void	cone_create(t_map *grid, int h, int r)
 {
-	int	i;
-	int	j;
-	int	point;
-	int	**cone;
+	int		i;
+	int		j;
+	int		point;
+	float	**cone;
 
-	cone = malloc(sizeof(int *) * 18);
+	cone = grid->xyzc;
 	j = -1;
 	point = 0;
-	while (++j < 2)
+	while (++j <= grid->width)
 	{
 		i = -1;
-		while (++i < 9)
+		while (++i <= grid->height)
 		{
-			cone[point] = malloc(sizeof(int) * 4);
-			cone[point][0] = !(j) * (sin(i * M_PI_4) * 20) + 20;
-			cone[point][1] = !(j) * (cos(i * M_PI_4) * 20) + 20;
-			cone[point][2] = 40 * j;
+			cone[point][0] = (grid->width - j) * (sin(i * 2 * M_PI
+						/ grid->height) * r) / grid->width + r;
+			cone[point][1] = (grid->width - j) * (cos(i * 2 * M_PI
+						/ grid->height) * r) / grid->width + r;
+			cone[point][2] = h * j / grid->width;
 			cone[point][3] = 0xFFFFFF;
 			point++;
 		}
 	}
-	mlx->ui.cone_map.xyzc = cone;
+}
+
+// Reserve memory for a point and fills it with data given.
+float	*point_dim(t_point p)
+{
+	float	*point;
+
+	point = malloc(sizeof(float) * 4);
+	point[0] = p.x;
+	point[1] = p.y;
+	point[2] = p.z;
+	return (point);
+}
+
+// Initialize a map structure and reserves memory
+// according to width and height given as parameters.
+t_map	grid_create(int width, int height)
+{
+	t_map	grid;
+	int		point;
+
+	grid.id = 0;
+	grid.scale = 1;
+	grid.size = (width + 1) * (height + 1);
+	grid.width = width;
+	grid.height = height;
+	grid.colormin = 0xFF;
+	grid.colormax = 0xFFFFFF;
+	grid.gap.x = UI_X;
+	grid.gap.y = UI_Y;
+	grid.xyzc = malloc(sizeof(float *) * grid.size);
+	point = -1;
+	while (++point < grid.size)
+		grid.xyzc[point] = point_dim(point_fill(0, 0, 0));
+	return (grid);
 }

@@ -12,6 +12,7 @@
 
 #include "../src/fdf.h"
 
+// Angle set for projections (called using numpad).
 void	proyections(t_mlx *mlx, int key)
 {
 	if (key == NPD_2 || key == NPD_4 || key == NPD_6 || key == NPD_8)
@@ -38,24 +39,7 @@ void	proyections(t_mlx *mlx, int key)
 		mlx->cam.angleh = 7 * M_PI_4;
 }
 
-void	update_value_up(t_mlx *mlx, double *val, double dv, double max)
-{
-	img_clean(mlx);
-	*val += dv;
-	if (*val >= max)
-		*val = 0;
-	img_draw(mlx);
-}
-
-void	update_value_down(t_mlx *mlx, double *val, double dv, double min)
-{
-	img_clean(mlx);
-	*val += dv;
-	if (*val <= 0)
-		*val = min;
-	img_draw(mlx);
-}
-
+// Turn off all the rotations.
 void	rotations_off(t_mlx *mlx)
 {
 	int	i;
@@ -65,12 +49,13 @@ void	rotations_off(t_mlx *mlx)
 		mlx->cam.auto_rot[i] = 0;
 }
 
+// Actions to be taken when left click is pressed.
 void	mouse_left(t_mlx *mlx, int x, int y)
 {
 	if (x < 75 && y < 75)
 	{
 		img_clean(mlx);
-		mlx->cam.view = !mlx->cam.view;
+		update_int_up(mlx, &mlx->cam.view, 1, 3);
 	}
 	if (x < UI_X * 2 && y > mlx->ui.y - 25)
 		mlx->ui.rgbcircle = !mlx->ui.rgbcircle;
@@ -83,8 +68,5 @@ void	mouse_left(t_mlx *mlx, int x, int y)
 		img_draw(mlx);
 	}
 	else if (x > UI_X * 2 && y < mlx->ui.y - 25)
-	{
 		mlx->mouse.l = 1;
-		mlx->mouse.y = WIN_H / 2 + y;
-	}
 }

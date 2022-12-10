@@ -64,14 +64,14 @@ void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb)
 		p = intersect(map, cam, i);
 		fin = point_project(cam, p, mlx->map.gap.x, mlx->map.gap.y);
 		if (i > 0 && (i % (map->height + 1)))
-			line (&mlx->img, ini, fin,
+			line (mlx, ini, fin,
 				trgb * fmax(map->xyzc[i][3], map->xyzc[i - 1][3]));
 		ini = fin;
 		if (i + map->height + 1 < map->size)
 		{
 			p = intersect(map, cam, i + map->height + 1);
 			fin = point_project(cam, p, mlx->map.gap.x, mlx->map.gap.y);
-			line(&mlx->img, ini, fin, trgb * fmax(map->xyzc[i][3],
+			line(mlx, ini, fin, trgb * fmax(map->xyzc[i][3],
 					map->xyzc[i + map->height + 1][3]));
 		}
 		i++;

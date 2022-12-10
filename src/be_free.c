@@ -40,20 +40,31 @@ void	str_be_free(char *str)
 	}
 }
 
-void	ptr_be_free(char **str)
+void	nbr_be_free(float *nbr)
 {
-	if (str)
+	if (nbr)
 	{
-		free (str);
-		str = NULL;
+		free (nbr);
+		nbr = NULL;
 	}
 }
 
-void	map_free(int **map)
+void	map_free(t_map *map)
 {
-	if (map)
+	int	i;
+
+	i = -1;
+	while (++i < map->size)
 	{
-		free (map);
-		map = NULL;
+		if (map->xyzc[i])
+		{
+			free(map->xyzc[i]);
+			map->xyzc[i] = NULL;
+		}
+	}
+	if (map->xyzc)
+	{
+		free(map->xyzc);
+		map->xyzc = NULL;
 	}
 }

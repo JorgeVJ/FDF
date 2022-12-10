@@ -56,8 +56,18 @@ int	atoi_hexa_pos(char *str, int *pos)
 
 void	point_create(t_map *map, int point, t_point p)
 {
-	map->xyzc[point] = malloc(sizeof(int) * 4);
 	map->xyzc[point][0] = p.x * map->scale;
 	map->xyzc[point][1] = p.y * map->scale;
 	map->xyzc[point][2] = p.z * map->scale;
+}
+
+void	remaping(t_map *map, float l_inf, float l_sup)
+{
+	int	i;
+
+	i = -1;
+	map_limits(map);
+	while (++i < map->size)
+		map->xyzc[i][2] = l_inf + (l_sup - l_inf)
+			* ((map->xyzc[i][2] - map->min.z) / (map->max.z - map->min.z));
 }

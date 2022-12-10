@@ -16,13 +16,15 @@
 # include "fdf_struct.h"
 # include "fdf.h"
 
-void	map_fill(t_map *map, char *dir);
-int		map_deltaz(t_map *map);
+void	map_load_dim(char *dir, int *width, int *height);
+void	map_fill_from_file(t_map *map, char *dir);
+int		map_deltaz(t_map map);
 void	map_color(t_map *map);
 void	map_repaint(t_map *map);
 void	map_limits(t_map *m);
 void	map_scale(t_map *map, float scale);
-void	map_free(int **map);
+void	map_free(t_map *map);
+void	remaping(t_map *map, float l_inf, float l_sup);
 void	map_error(int height, int width);
 void	str_error(char *str, int pos);
 int		**map_size(char *dir, int *width, int *height);
