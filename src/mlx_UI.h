@@ -19,9 +19,12 @@
 # include "fdf.h"
 
 // void    ui_sphere/_create(t_mlx *mlx);
+void	menu_init(t_menu *m, char **texto, t_point pos);
+void	menu_display(t_mlx *m, t_menu *menu);
 void	circle_draw(t_mlx *mlx, int color, int x, int y);
 int		color_rgb(t_mlx *mlx, int getx, int gety, int d);
 int		color_pick(t_img *img, int x, int y);
+void	copy_colors_from_map(t_map *dst, t_map src);
 void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames);
 void	image_animate(t_mlx *mlx, t_frames *images, int x, int y);
 void	key_put(t_mlx *mlx, char *str, int x, int y);
@@ -45,5 +48,6 @@ void	rotations_off(t_mlx *mlx);
 void	auto_rotate(t_mlx *mlx, int key);
 void	rotate_cam(t_mlx *mlx, int x, int y);
 void	proyections(t_mlx *mlx, int key);
+void	fdf_cam_init(t_mlx *mlx);
 t_point	cam_pos(t_cam *cam);
 #endif

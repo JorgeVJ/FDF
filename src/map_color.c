@@ -12,27 +12,6 @@
 
 #include "fdf.h"
 
-int	map_deltaz(t_map map)
-{
-	int	i;
-	int	max;
-	int	min;
-
-	max = INT_MIN;
-	min = INT_MAX;
-	i = -1;
-	while (++i < map.size)
-	{
-		if (max < map.xyzc[i][2])
-			max = map.xyzc[i][2];
-		else
-			min = map.xyzc[i][2];
-	}
-	if (!(max - min))
-		return (1);
-	return (max - min);
-}
-
 void	to_rgb(t_map *map, int max, int min)
 {
 	map->cmax[0] = (max >> 16) & 0xFF;
@@ -95,4 +74,20 @@ int	color_read(char *line, int *pos)
 	if (line[*pos] == ' ' || line[*pos] == '\n')
 		*pos += 1;
 	return (color);
+}
+
+// Does this really needs an explanation?
+// Take color value from one map and transfer it to another one
+void	copy_colors_from_map(t_map *dst, t_map src)
+{
+	int	point;
+	int	size;
+
+	if (dst->size > src.size)
+		size = src.size;
+	else
+		size = dst->size;
+	point = -1;
+	while (++point < size)
+		dst->xyzc[point][3] = src.xyzc[point][3];
 }

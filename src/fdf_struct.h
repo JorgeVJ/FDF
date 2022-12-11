@@ -75,12 +75,26 @@ typedef struct s_frames {
 	int		max;
 }				t_frames;
 
+typedef struct s_button {
+	int		id;
+	char	*text;
+	t_point	center;
+}				t_button;
+
+typedef struct s_menu {
+	t_button	button[8];
+	int			size;
+	int			hover_on;
+}				t_menu;
+
 typedef struct s_ui {
 	int			rgbcircle;
 	t_frames	keys;
 	t_frames	logo;
 	int			time;
 	int			mouse_in;
+	char		menu_in;
+	t_menu		menu;
 	int			x;
 	int			y;
 	t_cam		cam;

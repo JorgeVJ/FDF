@@ -31,6 +31,8 @@ int	hook_keydown(int key, t_mlx *mlx)
 		update_value_down(mlx, (double *)(&mlx->cam.dist), -5, 10);
 	else if (key == KEY_Z)
 		mlx->cam.z_key = !mlx->cam.z_key;
+	else if (key == KEY_E)
+		mlx->ui.menu_in = !mlx->ui.menu_in;
 	img_draw(mlx);
 	return (0);
 }
@@ -47,6 +49,8 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 		rotate_cam(mlx, x, y);
 	else if (mlx->cam.z_key)
 		scale_z(mlx, x, y);
+	else if (mlx->ui.menu_in)
+		menu_hover(mlx, &mlx->ui.menu, x, y);
 	mlx->mouse.posx = x;
 	mlx->mouse.posy = y;
 	return (0);

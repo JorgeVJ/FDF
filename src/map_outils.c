@@ -71,3 +71,24 @@ void	remaping(t_map *map, float l_inf, float l_sup)
 		map->xyzc[i][2] = l_inf + (l_sup - l_inf)
 			* ((map->xyzc[i][2] - map->min.z) / (map->max.z - map->min.z));
 }
+
+int	map_deltaz(t_map map)
+{
+	int	i;
+	int	max;
+	int	min;
+
+	max = INT_MIN;
+	min = INT_MAX;
+	i = -1;
+	while (++i < map.size)
+	{
+		if (max < map.xyzc[i][2])
+			max = map.xyzc[i][2];
+		else
+			min = map.xyzc[i][2];
+	}
+	if (!(max - min))
+		return (1);
+	return (max - min);
+}

@@ -23,6 +23,7 @@ FUNCTIONS =		main.c				\
 				proy_iso.c			\
 				proy_conic.c		\
 				animate.c			\
+				reload.c			\
 				map_color.c			\
 				map_outils.c		\
 				map_error.c			\
@@ -34,6 +35,7 @@ DIR_UI = ./UI/
 F_UI =			ui_hooks.c			\
 				ui_hooks_outils.c	\
 				ui_hooks_outils2.c	\
+				ui_menu.c			\
 				ui_vars_update.c	\
 				ui_colors.c			\
 				ui_images.c			\

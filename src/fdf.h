@@ -20,6 +20,7 @@
 # define KEY_Z      6
 # define KEY_C      8
 # define KEY_V      9
+# define KEY_E      14
 # define KEY_W      13
 # define KEY_Q      12
 # define KEY_ESC    53
@@ -53,6 +54,8 @@
 
 // void	wave(t_mlx *mlx);
 void	fdf_init(t_mlx *mlx, char *dir);
+void	reload(t_mlx *m);
+void	load_file(t_mlx *m,	char *dir);
 int		hook_exit(t_mlx *mlx);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	line(t_mlx *m, t_point a, t_point b, int trgb);

@@ -69,4 +69,9 @@ void	key_help(t_mlx *mlx)
 	mlx_string_put(mlx->mlx, mlx->win, 600, 490, 0xFFFFFF, "Conic effect-");
 	key_put(mlx, "V", 500, 540);
 	mlx_string_put(mlx->mlx, mlx->win, 600, 560, 0xFFFFFF, "Conic effect+");
+	key_put(mlx, "E", 500, 610);
+	mlx_string_put(mlx->mlx, mlx->win, 600, 630, 0xFFFFFF, "Change map");
+	key_put(mlx, "Z", 500, 680);
+	mlx_string_put(mlx->mlx, mlx->win, 600, 700, 0xFFFFFF,
+		"Change height on/off");
 }

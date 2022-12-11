@@ -67,6 +67,8 @@ void	mouse_left(t_mlx *mlx, int x, int y)
 		map_repaint(&mlx->map);
 		img_draw(mlx);
 	}
-	else if (x > UI_X * 2 && y < mlx->ui.y - 25)
+	else if (x > UI_X * 2 && y < mlx->ui.y - 25 && !mlx->ui.menu_in)
 		mlx->mouse.l = 1;
+	else if (mlx->ui.menu_in)
+		reload(mlx);
 }

@@ -25,18 +25,16 @@ void	fdf_ui_maps_init(t_mlx *mlx)
 
 void	fdf_interface_init(t_mlx *mlx)
 {
+	menu_init(&mlx->ui.menu, ft_split("Pyramide,World,Julia,T1,42", ','),
+		point_fill(WIN_W / 2 - 50, WIN_H / 3 - 15, 0));
 	mlx->p = 0;
 	fdf_ui_maps_init(mlx);
 	mlx->ui.animation = 0;
 	ft_bzero(&mlx->mouse, sizeof(t_mouse));
+	mlx->ui.menu_in = 0;
 	mlx->ui.time = 0;
 	mlx->ui.mouse_in = 0;
 	mlx->ui.rgbcircle = 0;
-	mlx->sphere.id = 2;
-	mlx->sphere.gap.x = WIN_W / 2;
-	mlx->sphere.gap.y = WIN_H / 2;
-	mlx->map.gap.x = WIN_W / 2;
-	mlx->map.gap.y = WIN_H / 2;
 	mlx->ui.a_frame = 0;
 	mlx->ui.x = 25;
 	mlx->ui.y = WIN_H - 25;
@@ -48,8 +46,8 @@ void	fdf_cam_init(t_mlx *mlx)
 {
 	ft_bzero(&mlx->cam, sizeof(t_cam));
 	mlx->cam.zoom = 1 + 420 / (1 + fabs(mlx->map.max.x - mlx->map.min.x));
-	mlx->cam.angleh = 1 * M_PI_4 * 0;
-	mlx->cam.anglev = 3 * M_PI_4 * 0;
+	mlx->cam.angleh = 1 * M_PI_4;
+	mlx->cam.anglev = 1 * M_PI_4;
 	mlx->cam.zscale = 1;
 	mlx->cam.view = 1;
 	mlx->cam.dist = 300;
@@ -70,22 +68,6 @@ void	fdf_cam_init(t_mlx *mlx)
 	mlx->cleaner = clean;
 	return (clean);
 }*/
-
-// Does this really needs an explanation?
-// Take color value from one map and transfer it to another one
-void	copy_colors_from_map(t_map *dst, t_map src)
-{
-	int	point;
-	int	size;
-
-	if (dst->size > src.size)
-		size = src.size;
-	else
-		size = dst->size;
-	point = -1;
-	while (++point < size)
-		dst->xyzc[point][3] = src.xyzc[point][3];
-}
 
 // Just testing things...
 /*void	wave(t_mlx *mlx)
@@ -109,21 +91,31 @@ void	copy_colors_from_map(t_map *dst, t_map src)
 	}
 }*/
 
+void	load_file(t_mlx *m,	char *dir)
+{
+	map_load_dim(dir, &m->map.width, &m->map.height);
+	m->map = grid_create(m->map.width, m->map.height);
+	m->map.scale = 10;
+	map_fill_from_file(&m->map, dir);
+	map_limits(&m->map);
+	remaping(&m->map, 0, 42);
+	fdf_cam_init(m);
+	m->sphere = grid_create(m->map.width, m->map.height);
+	sphere_create(&m->sphere, 150, mapz_to_displacement(m->map, 1));
+	copy_colors_from_map(&m->sphere, m->map);
+	m->sphere.id = 2;
+	m->sphere.gap.x = WIN_W / 2;
+	m->sphere.gap.y = WIN_H / 2;
+	m->map.gap.x = WIN_W / 2;
+	m->map.gap.y = WIN_H / 2;
+}
+
 // mlx->cleaner = cleaner_init(mlx);
 // Cleaner must be initialized before img_new for some strange reason.
 void	fdf_init(t_mlx *mlx, char *dir)
 {
 	ft_bzero(&mlx->map, sizeof(t_map));
-	map_load_dim(dir, &mlx->map.width, &mlx->map.height);
-	mlx->map = grid_create(mlx->map.width, mlx->map.height);
-	mlx->map.scale = 10;
-	map_fill_from_file(&mlx->map, dir);
-	map_limits(&mlx->map);
-	remaping(&mlx->map, 0, 42);
-	fdf_cam_init(mlx);
-	mlx->sphere = grid_create(mlx->map.width, mlx->map.height);
-	sphere_create(&mlx->sphere, 150, mapz_to_displacement(mlx->map, 1));
-	copy_colors_from_map(&mlx->sphere, mlx->map);
+	load_file(mlx, dir);
 	fdf_interface_init(mlx);
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, WIN_W, WIN_H, "FDF");
