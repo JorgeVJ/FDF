@@ -13,6 +13,10 @@
 #ifndef FDF_STRUCT_H
 # define FDF_STRUCT_H
 
+# include "../UI/menu/mlx_menu.h"
+// struct s_button;
+// struct s_menu;
+
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -21,12 +25,12 @@ typedef struct s_img {
 	int		endian;
 }				t_img;
 
-typedef struct s_point {
+/*typedef struct s_point {
 	float	x;
 	float	y;
 	float	z;
 	int		c;
-}				t_point;
+}				t_point;*/
 
 typedef struct s_map {
 	int		id;
@@ -42,7 +46,7 @@ typedef struct s_map {
 	int		cmax[3];
 	int		cmin[3];
 	float	**xyzc;
-
+	//t_point *n;
 }				t_map;
 
 typedef struct s_cam {
@@ -75,18 +79,6 @@ typedef struct s_frames {
 	int		max;
 }				t_frames;
 
-typedef struct s_button {
-	int		id;
-	char	*text;
-	t_point	center;
-}				t_button;
-
-typedef struct s_menu {
-	t_button	button[8];
-	int			size;
-	int			hover_on;
-}				t_menu;
-
 typedef struct s_ui {
 	int			rgbcircle;
 	t_frames	keys;
@@ -117,6 +109,10 @@ typedef struct s_trian {
 	t_point	c;
 }				t_trian;
 
+/*typedef struct s_norm {
+	t_point	**gen;
+}				t_norm;*/
+
 typedef struct s_mlx {
 	void	*mlx;
 	void	*win;
@@ -128,5 +124,6 @@ typedef struct s_mlx {
 	t_cam	cam;
 	t_mouse	mouse;
 	t_ui	ui;
+	t_norm	n;
 }				t_mlx;
 #endif

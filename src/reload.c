@@ -15,16 +15,8 @@
 // Free loaded maps, clean the screen and reload from file.
 void	reload(t_mlx *m)
 {
-	t_point	p;
-
-	p.x = -1;
-	while (++p.x < WIN_W - 60)
-	{
-		p.y = -1;
-		while (++p.y < WIN_H)
-			my_mlx_pixel_put(&m->img, p.x, p.y, 0);
-	}
-	mlx_put_image_to_window(m->mlx, m->win, &m->img, 0, 0);
+	//img_clean(m);
+	//mlx_put_image_to_window(m->mlx, m->win, &m->img, 0, 0);
 	map_free(&m->map);
 	map_free(&m->sphere);
 	if (m->ui.menu.hover_on == 0)

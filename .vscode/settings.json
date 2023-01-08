@@ -12,6 +12,8 @@
         "vector": "c",
         "iterator": "c",
         "sstream": "c",
-        "fdf.h": "c"
+        "fdf.h": "c",
+        "mlx_menu.h": "c",
+        "fdf_map.h": "c"
     }
 }

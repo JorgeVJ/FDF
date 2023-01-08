@@ -27,8 +27,8 @@ void	cube_create(t_map *grid, int a)
 		i = -1;
 		while (++i < 5)
 		{
-			cube[point][0] = j * a;
-			cube[point][1] = !((i - 2) * (i - 3)) * a;
+			cube[point][0] = j * a - a / 2;
+			cube[point][1] = !((i - 2) * (i - 3)) * a - a / 2;
 			cube[point][2] = !((i - 1) * (i - 2)) * a - a / 2;
 			cube[point][3] = 0xFFFFFF;
 			point++;
@@ -53,9 +53,9 @@ void	cone_create(t_map *grid, int h, int r)
 		while (++i <= grid->height)
 		{
 			cone[point][0] = (grid->width - j) * (sin(i * 2 * M_PI
-						/ grid->height) * r) / grid->width + r;
+						/ grid->height) * r) / grid->width;
 			cone[point][1] = (grid->width - j) * (cos(i * 2 * M_PI
-						/ grid->height) * r) / grid->width + r;
+						/ grid->height) * r) / grid->width;
 			cone[point][2] = h * j / grid->width;
 			cone[point][3] = 0xFFFFFF;
 			point++;

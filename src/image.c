@@ -74,28 +74,39 @@ void	img_draw(t_mlx *mlx)
 	}
 }*/
 
-// Recalculate map to paint it black (to be optimized).
+// Clean the entire image to black.
 void	img_clean(t_mlx *mlx)
 {
-	color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
-	mlx->ui.cam = mlx->cam;
-	mlx->ui.cam.zoom = 1;
-	if (mlx->cam.view == 1)
+	t_point	p;
+
+	p.x = -1;
+	while (++p.x < WIN_W - 60)
 	{
-		proy_iso(&mlx->map, &mlx->cam, 0, mlx);
-		proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, 0, mlx);
-	}
-	else if (mlx->cam.view == 0)
-	{
-		proy_conic(mlx, &mlx->map, &mlx->cam, 0);
-		proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, 0, mlx);
-	}
-	else
-	{
-		proy_iso(&mlx->sphere, &mlx->cam, 0, mlx);
-		proy_iso(&mlx->ui.sphere_map, &mlx->ui.cam, 0, mlx);
+		p.y = -1;
+		while (++p.y < WIN_H)
+			my_mlx_pixel_put(&mlx->img, p.x, p.y, 0);
 	}
 }
+
+// Recalculate map to paint it black (to be optimized).
+/*color_rgb(mlx, 0, 0, mlx->ui.rgbcircle);
+mlx->ui.cam = mlx->cam;
+mlx->ui.cam.zoom = 1;
+if (mlx->cam.view == 1)
+{
+	proy_iso(&mlx->map, &mlx->cam, 0, mlx);
+	proy_iso(&mlx->ui.cube_map, &mlx->ui.cam, 0, mlx);
+}
+else if (mlx->cam.view == 0)
+{
+	proy_conic(mlx, &mlx->map, &mlx->cam, 0);
+	proy_iso(&mlx->ui.cone_map, &mlx->ui.cam, 0, mlx);
+}
+else
+{
+	proy_iso(&mlx->sphere, &mlx->cam, 0, mlx);
+	proy_iso(&mlx->ui.sphere_map, &mlx->ui.cam, 0, mlx);
+}*/
 
 // void	proy_iso(t_map *m, t_cam *cam, t_img *img, int trgb)
 // Isometric projection
@@ -109,17 +120,19 @@ void	proy_iso(t_map *m, t_cam *cam, int trgb, t_mlx *mm)
 	i = 0;
 	while (i < m->size)
 	{
-		b = point_move(m, i, point_fill(-(m->max.x - m->min.x) / 2,
-					-(m->max.y - m->min.y) / 2, 0));
+		// b = point_move(m, i, point_fill(-(m->max.x - m->min.x) / 2,
+		// 			-(m->max.y - m->min.y) / 2, 0));
+		b = point_move(m, i, point_fill(0, 0, 0));
 		b = point_project(cam, b, m->gap.x, m->gap.y);
-		if (check_paint(m, cam, i) && i > 0 && (i % (m->height + 1))
+		if (i > 0 && (i % (m->height + 1) && check_paint(m, cam, i, b))
 			&& !point_overlap(a, b))
 			line (mm, a, b, trgb * fmax(m->xyzc[i][3], m->xyzc[i - 1][3]));
 		a = b;
-		if (check_paint(m, cam, i) && i + m->height + 1 < m->size)
+		if (i + m->height + 1 < m->size && check_paint(m, cam, i, b))
 		{
-			b = point_move(m, i + m->height + 1, point_fill(-(m->max.x
-							- m->min.x) / 2, -(m->max.y - m->min.y) / 2, 0));
+			// b = point_move(m, i + m->height + 1, point_fill(-(m->max.x
+			// 				- m->min.x) / 2, -(m->max.y - m->min.y) / 2, 0));
+			b = point_move(m, i + m->height + 1, point_fill(0, 0, 0));
 			b = point_project(cam, b, m->gap.x, m->gap.y);
 			line(mm, a, b, trgb * fmax(m->xyzc[i][3],
 					m->xyzc[i + m->height + 1][3]));

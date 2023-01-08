@@ -20,12 +20,12 @@ void	fdf_ui_maps_init(t_mlx *mlx)
 	cone_create(&mlx->ui.cone_map, 40, 20);
 	mlx->ui.sphere_map = grid_create(8, 8);
 	sphere_create(&mlx->ui.sphere_map, 30, NULL);
-	map_repaint(&mlx->ui.sphere_map);
+	//map_repaint(&mlx->ui.sphere_map);
 }
 
 void	fdf_interface_init(t_mlx *mlx)
 {
-	menu_init(&mlx->ui.menu, ft_split("Pyramide,World,Julia,T1,42", ','),
+	menu_init(&mlx->ui.menu, ft_split("Pyramide,World,Julia,T1,42,", ','),
 		point_fill(WIN_W / 2 - 50, WIN_H / 3 - 15, 0));
 	mlx->p = 0;
 	fdf_ui_maps_init(mlx);
@@ -96,6 +96,7 @@ void	load_file(t_mlx *m,	char *dir)
 	map_load_dim(dir, &m->map.width, &m->map.height);
 	m->map = grid_create(m->map.width, m->map.height);
 	m->map.scale = 10;
+	m->map.id = 1;
 	map_fill_from_file(&m->map, dir);
 	map_limits(&m->map);
 	remaping(&m->map, 0, 42);
@@ -120,6 +121,10 @@ void	fdf_init(t_mlx *mlx, char *dir)
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, WIN_W, WIN_H, "FDF");
 	img_new(mlx);
+	mlx->ui.menu.mlx = mlx->mlx;
+	mlx->ui.menu.win = mlx->win;
+	mlx->ui.menu.img = (void *)(&mlx->img);
+	// mlx->ui.menu.n.gen = mlx->n.gen;
 	map_color(&mlx->map);
 	img_draw(mlx);
 	mlx->ui.logo.frame = 0;

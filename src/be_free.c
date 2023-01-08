@@ -62,6 +62,11 @@ void	map_free(t_map *map)
 			map->xyzc[i] = NULL;
 		}
 	}
+	/*if (map->n)
+	{
+		free(map->n);
+		map->n = NULL;
+	}*/
 	if (map->xyzc)
 	{
 		free(map->xyzc);

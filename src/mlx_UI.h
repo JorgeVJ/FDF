@@ -19,8 +19,10 @@
 # include "fdf.h"
 
 // void    ui_sphere/_create(t_mlx *mlx);
+float	distance(t_point a, t_point b);
+void	menu_hover(t_menu *menu, int x, int y);
 void	menu_init(t_menu *m, char **texto, t_point pos);
-void	menu_display(t_mlx *m, t_menu *menu);
+void	menu_display(t_menu *menu);
 void	circle_draw(t_mlx *mlx, int color, int x, int y);
 int		color_rgb(t_mlx *mlx, int getx, int gety, int d);
 int		color_pick(t_img *img, int x, int y);
@@ -32,10 +34,8 @@ void	key_help(t_mlx *mlx);
 void	cube_create(t_map *grid, int a);
 void	cone_create(t_map *grid, int h, int r);
 void	sphere_create(t_map *grid, int r, float *dp);
-// int     **sphere_create(t_mlx *mlx, int r, int *dp);
 float	*mapz_to_displacement(t_map map, float scale);
 t_map	grid_create(int width, int height);
-// int     **sphere/_create(t_map mesh);
 void	sphere_transform(t_mlx *mlx);
 void	scale_z(t_mlx *mlx, int x, int y);
 void	mouse_left(t_mlx *mlx, int x, int y);

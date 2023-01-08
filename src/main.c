@@ -14,7 +14,7 @@
 
 void	leaks(void)
 {
-	system("leaks fdf");
+	system("leaks -q fdf");
 }
 
 int	main(int argc, char **argv)
@@ -27,6 +27,8 @@ int	main(int argc, char **argv)
 		write(1, "Are you introducing one map?", 28);
 		return (0);
 	}
+	normal_generic(&mlx);
+	mlx.ui.menu.n.gen = mlx.n.gen;
 	fdf_init(&mlx, argv[argc * 0 + 1]);
 	mlx_hook(mlx.win, 4, 0, hook_mousedown, &mlx);
 	mlx_hook(mlx.win, 5, 0, hook_mouseup, &mlx);
@@ -36,3 +38,4 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(mlx.mlx, hook_rotate, &mlx);
 	mlx_loop(mlx.mlx);
 }
+

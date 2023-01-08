@@ -56,6 +56,7 @@ void	scale_z(t_mlx *mlx, int x, int y)
 	{
 		mlx->cam.zscale = 1;
 		sphere_create(&mlx->sphere, 150, mapz_to_displacement(mlx->map, scale));
+		copy_colors_from_map(&mlx->sphere, mlx->map);
 	}
 	mlx->mouse.y = y;
 	img_draw(mlx);

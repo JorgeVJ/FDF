@@ -18,9 +18,10 @@ void	sphere_fill(float *point, t_point angle, double z, int r)
 	int	rad;
 
 	rad = r + z;
-	point[0] = (rad * sin(angle.x) * cos(angle.z) + rad);
-	point[1] = (rad * cos(angle.x) * cos(angle.z) + rad);
+	point[0] = (rad * sin(angle.x) * cos(angle.z)); /* +rad */
+	point[1] = (rad * cos(angle.x) * cos(angle.z)); /* +rad */
 	point[2] = (rad * sin(angle.z));
+	point[3] = 0xFFFFFF;
 }
 
 //Transform 'z' coordinates from a grid to an array
@@ -40,6 +41,21 @@ float	*mapz_to_displacement(t_map map, float scale)
 	while (++i < map.size)
 		displacement[i] = map.xyzc[i][2] * dz;
 	return (displacement);
+}
+
+void	map_normals(t_map *m)
+{
+	int	i;
+
+	i = -1;
+	(void)m;
+	/*m->n = malloc(sizeof(t_point) * m->size);
+	while (++i < m->size)
+	{
+		m->n[i] = point_fill(m->xyzc[i][0], m->xyzc[i][1], m->xyzc[i][2]);
+		// printf("x: %f y: %f z: %f\n", m->n[i].x, m->n[i].y, m->n[i].z);
+		normalize(&m->n[i]);
+	}*/
 }
 
 //Create a sphere mesh with radius 'r' using height, width and size given
@@ -72,6 +88,8 @@ void	sphere_create(t_map *grid, int r, float *dp)
 	}
 	if (dp)
 		nbr_be_free(dp);
+	map_normals(grid);
+	// printf("\n\n\n");
 }
 
 // Transform a mesh into another

@@ -27,6 +27,7 @@ FUNCTIONS =		main.c				\
 				map_color.c			\
 				map_outils.c		\
 				map_error.c			\
+				normals.c			\
 				map.c				\
 				be_free.c			\
 				triangulate.c
@@ -35,7 +36,7 @@ DIR_UI = ./UI/
 F_UI =			ui_hooks.c			\
 				ui_hooks_outils.c	\
 				ui_hooks_outils2.c	\
-				ui_menu.c			\
+				menu/ui_menu.c		\
 				ui_vars_update.c	\
 				ui_colors.c			\
 				ui_images.c			\

@@ -50,7 +50,7 @@ int	hook_mousemove(int x, int y, t_mlx *mlx)
 	else if (mlx->cam.z_key)
 		scale_z(mlx, x, y);
 	else if (mlx->ui.menu_in)
-		menu_hover(mlx, &mlx->ui.menu, x, y);
+		menu_hover(&mlx->ui.menu, x, y);
 	mlx->mouse.posx = x;
 	mlx->mouse.posy = y;
 	return (0);

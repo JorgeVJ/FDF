@@ -45,23 +45,27 @@
 # include <fcntl.h>
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
-# include "mlx_UI.h"
 # include "fdf_struct.h"
+# include "../UI/menu/mlx_menu.h"
+# include "mlx_UI.h"
 # include "fdf_map.h"
 # include "fdf_utils.h"
 # include <math.h>
 # include <limits.h>
 
 // void	wave(t_mlx *mlx);
+float	scalar(t_point a, t_point b, float max, float min);
+float   normalize(t_point *v);
+void    normal_generic(t_mlx *m);
 void	fdf_init(t_mlx *mlx, char *dir);
-void	reload(t_mlx *m);
+void 	reload(t_mlx *m);
 void	load_file(t_mlx *m,	char *dir);
 int		hook_exit(t_mlx *mlx);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	line(t_mlx *m, t_point a, t_point b, int trgb);
 void	proy_iso(t_map *map, t_cam *cam, int trgb, t_mlx *m);
 void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb);
-int		check_paint(t_map *map, t_cam *cam, int point);
+int		check_paint(t_map *map, t_cam *cam, int point, t_point b);
 void	img_new(t_mlx *mlx);
 void	img_clean(t_mlx *mlx);
 void	img_draw(t_mlx *mlx);
@@ -75,7 +79,8 @@ t_point	point_project(t_cam *cam, t_point a, int gapx, int gapy);
 int		point_overlap(t_point a, t_point b);
 t_point	point_fill(int x, int y, int z);
 void	point_create(t_map *map, int point, t_point p);
-// t_point	get_projected(t_map *m, t_cam *cam, int point);
-// t_trian	triangle(t_mlx *mlx, int i);
-// void	fill_face(t_mlx *mlx, t_trian t);
+t_point	get_projected(t_map *m, t_cam *cam, int point);
+t_trian	triangle(t_map *map, t_cam *cam, int i);
+void	fill_face(t_mlx *mlx, t_trian t);
+t_point	normal(t_trian p);
 #endif

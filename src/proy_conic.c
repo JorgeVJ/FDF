@@ -31,9 +31,7 @@ t_point	intersect(t_map *map, t_cam *cam, int point)
 	double	t;
 
 	b = cam->pos;
-	a = point_move(map, point, point_fill(-(map->max.x - map->min.x) / 2,
-				-(map->max.y - map->min.y) / 2,
-				-(map->max.z - map->min.z) / 2));
+	a = point_move(map, point, point_fill(0, 0, 0));
 	v.x = a.x - b.x;
 	v.y = a.y - b.y;
 	v.z = a.z - b.z;
@@ -63,6 +61,7 @@ void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb)
 	{
 		p = intersect(map, cam, i);
 		fin = point_project(cam, p, mlx->map.gap.x, mlx->map.gap.y);
+		// fin = point_project(cam, p, 0, 0);
 		if (i > 0 && (i % (map->height + 1)))
 			line (mlx, ini, fin,
 				trgb * fmax(map->xyzc[i][3], map->xyzc[i - 1][3]));
@@ -71,6 +70,7 @@ void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb)
 		{
 			p = intersect(map, cam, i + map->height + 1);
 			fin = point_project(cam, p, mlx->map.gap.x, mlx->map.gap.y);
+			// fin = point_project(cam, p, 0, 0);
 			line(mlx, ini, fin, trgb * fmax(map->xyzc[i][3],
 					map->xyzc[i + map->height + 1][3]));
 		}

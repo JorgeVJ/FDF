@@ -73,7 +73,7 @@ void	map_fill_from_file(t_map *map, char *dir)
 		while (line[pos])
 		{
 			point_create(map, point,
-				point_fill(p.x, p.y++, ft_atoi_pos(line, &pos)));
+				point_fill(p.x - map->width / 2 , p.y++ - map->height / 2, ft_atoi_pos(line, &pos)));
 			map->xyzc[point++][3] = color_read(line, &pos);
 		}
 		p.x++;
