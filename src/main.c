@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:10:22 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/25 20:17:11 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:00:23 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/* Only MAC
 void	leaks(void)
 {
 	system("leaks -q fdf");
 }
+	atexit(leaks);
+*/
 
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	atexit(leaks);
 	if (argc > 2 || argc < 2)
 	{
 		write(1, "Are you introducing one map?", 28);

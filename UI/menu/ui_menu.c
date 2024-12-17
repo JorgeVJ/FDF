@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_menu.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 01:26:11 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/12/11 01:26:11 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:30:51 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 		c.y - 15 / 2, 0xFFF0 * !act, texto);
 }*/
 
-/*void	map_explode(t_img *img)
+/*void	map_explode(t_mlximg *img)
 {
 	char	*dst;
 	unsigned int	color;

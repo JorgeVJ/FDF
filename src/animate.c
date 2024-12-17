@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animate.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:30:59 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/12/03 23:00:34 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:24:09 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ float	*mapz_to_displacement(t_map map, float scale)
 
 void	map_normals(t_map *m)
 {
-	int	i;
+	//int	i;
 
-	i = -1;
+	//i = -1;
 	(void)m;
 	/*m->n = malloc(sizeof(t_point) * m->size);
 	while (++i < m->size)

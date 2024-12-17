@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/16 11:50:34 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:30:51 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,14 @@
 # define M_WUP      4
 # define M_WDO      5
 
-# include <mlx.h>
+
+# ifdef MACOS
+	# include <mlx.h>
+# endif
+
+# include "mlx.h"
+# include "mlx_int.h"
+
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -61,7 +68,7 @@ void	fdf_init(t_mlx *mlx, char *dir);
 void 	reload(t_mlx *m);
 void	load_file(t_mlx *m,	char *dir);
 int		hook_exit(t_mlx *mlx);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	my_mlx_pixel_put(t_mlximg *img, int x, int y, int color);
 void	line(t_mlx *m, t_point a, t_point b, int trgb);
 void	proy_iso(t_map *map, t_cam *cam, int trgb, t_mlx *m);
 void	proy_conic(t_mlx *mlx, t_map *map, t_cam *cam, int trgb);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_UI.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:58:33 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/16 11:43:31 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:30:51 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	menu_init(t_menu *m, char **texto, t_point pos);
 void	menu_display(t_menu *menu);
 void	circle_draw(t_mlx *mlx, int color, int x, int y);
 int		color_rgb(t_mlx *mlx, int getx, int gety, int d);
-int		color_pick(t_img *img, int x, int y);
+int		color_pick(t_mlximg *img, int x, int y);
 void	copy_colors_from_map(t_map *dst, t_map src);
 void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames);
 void	image_animate(t_mlx *mlx, t_frames *images, int x, int y);

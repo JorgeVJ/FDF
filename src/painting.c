@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   painting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 18:06:07 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/12/10 18:06:10 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:23:56 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	check_paint(t_map *map, t_cam *cam, int point, t_point b)
 {
 	int		angle;
-	int		angleh;
+	//int		angleh;
 	float	m;
 	int		r;
 	t_point	p;
@@ -41,7 +41,7 @@ int	check_paint(t_map *map, t_cam *cam, int point, t_point b)
 	// printf("campo: %f x: %f y: %f z: %f\n",	cam->dist, cam->pos.x, cam->pos.y, cam->pos.z);
 	return (1);
 	angle = (int)(cam->anglev * 360 / (2 * M_PI)) % 360;
-	angleh = (int)(cam->angleh * 360 / (2 * M_PI)) % 360;
+	//angleh = (int)(cam->angleh * 360 / (2 * M_PI)) % 360;
 	r = map->max.z;
 	m = (float)r / 90;
 	p.z = map->xyzc[point][2];

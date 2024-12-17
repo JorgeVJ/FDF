@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cambio.c                                           :+:      :+:    :+:   */
+/*   proy_iso.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:29:54 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 11:50:58 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:30:51 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ double	rotx(t_cam *cam, double y, double z)
 	return (z * cos(cam->anglev) + y * sin(cam->anglev));
 }
 
-// void	line(t_img *img, t_point a, t_point b, int trgb)
+// void	line(t_mlximg *img, t_point a, t_point b, int trgb)
 void	line(t_mlx *m, t_point a, t_point b, int trgb)
 {
 	int	x;

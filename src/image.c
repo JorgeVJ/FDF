@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 20:24:10 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/16 11:53:51 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:30:51 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 // Change the color of a pixel at given coords.
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_mlximg *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -108,7 +108,7 @@ else
 	proy_iso(&mlx->ui.sphere_map, &mlx->ui.cam, 0, mlx);
 }*/
 
-// void	proy_iso(t_map *m, t_cam *cam, t_img *img, int trgb)
+// void	proy_iso(t_map *m, t_cam *cam, t_mlximg *img, int trgb)
 // Isometric projection
 void	proy_iso(t_map *m, t_cam *cam, int trgb, t_mlx *mm)
 {

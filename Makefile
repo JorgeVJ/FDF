@@ -12,7 +12,10 @@
 # **************************************************************************** #
 
 NAME = fdf
-CFLAGS = -Wall -Wextra -Werror
+
+vpath %.h minilibx-linux : minilibx_opengl_20191021
+
+CFLAGS = -Wall -Wextra -Werror  -I$(MLXDIR) -g
 CC = gcc
 DIR_LIB = ./src/libft/
 DIR_SRC	= ./src/
@@ -46,22 +49,48 @@ F_UI =			ui_hooks.c			\
 DIR_GNL = ./src/gnl/
 F_GNL = 		get_next_line.c			\
 				get_next_line_utils.c	
-	
+
+# ------------------------ MLX CONFIG ------------------------------
+
+UNAME = $(shell uname)
+ifeq ($(UNAME), Linux)
+	MLXDIR = minilibx-linux
+	MLXFLAGS = -lmlx -lXext -lX11 -lm -lbsd
+	MLXLIB = $(MLXDIR)/libmlx_Linux.a $(MLXDIR)/libmlx.a
+	KEY_MACRO = -D LINUX
+else
+	MLXDIR = minilibx_opengl_20191021
+	MLXFLAGS = -lm -lmlx -framework OpenGL -framework AppKit
+	MLXLIB = $(MLXDIR)/libmlx.a
+	KEY_MACRO = -D MACOS
+endif
+
+MLXCONFIG = -L$(MLXDIR) $(MLXFLAGS) $(MLXLIB) $(KEY_MACRO)
+# -------------------------------------------------------------------
+
 #OBJS = ${FUNCTIONS:.c=.o}
 OBJS = $(addprefix $(DIR_SRC), ${FUNCTIONS:.c=.o})
 OBJS += $(addprefix $(DIR_GNL), ${F_GNL:.c=.o})
 OBJS += $(addprefix $(DIR_UI), ${F_UI:.c=.o})
 
 
-${NAME}:	${OBJS} libft
-			$(CC) $(CFLAGS) ${OBJS} $(DIR_LIB)libft.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+${NAME}:	${OBJS} $(MLXLIB) libft
+			$(CC) $(CFLAGS) ${OBJS} $(DIR_LIB)libft.a $(MLXCONFIG) -o $(NAME) -fsanitize=address -g3
 
 #all: $(NAME)
 all: libft	$(NAME)
 
+$(MLXLIB):
+		@echo "\n--------------------------\n"
+		@echo "Making MLX\n"
+		$(MAKE) -C $(MLXDIR)
+		@echo "--------------------------\n\n"
+
 clean:
 			rm -f $(OBJS)
 			make clean -C $(DIR_LIB)
+			@echo "Cleaning MLX"
+			make clean -C $(MLXDIR)
 
 fclean: clean
 			rm -f $(NAME)

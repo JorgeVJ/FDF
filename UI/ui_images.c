@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_images.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 16:00:10 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/19 16:31:52 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:39:44 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	images_load(t_mlx *mlx, t_frames *images, char *file, int frames)
 	{
 		images->file[len - 6] = '0' + i % 10;
 		images->file[len - 7] = '0' + i / 10;
-		images->images[i] = mlx_xpm_file_to_image(&mlx->mlx,
+		images->images[i] = mlx_xpm_file_to_image(mlx->mlx,
 				images->file, &x, &x);
 	}
 }

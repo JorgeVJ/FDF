@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 14:57:14 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/22 11:57:28 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:45:16 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ void	load_file(t_mlx *m,	char *dir)
 // Cleaner must be initialized before img_new for some strange reason.
 void	fdf_init(t_mlx *mlx, char *dir)
 {
-	ft_bzero(&mlx->map, sizeof(t_map));
-	load_file(mlx, dir);
-	fdf_interface_init(mlx);
 	mlx->mlx = mlx_init();
 	mlx->win = mlx_new_window(mlx->mlx, WIN_W, WIN_H, "FDF");
 	img_new(mlx);
+	ft_bzero(&mlx->map, sizeof(t_map));
+	load_file(mlx, dir);
+	fdf_interface_init(mlx);
 	mlx->ui.menu.mlx = mlx->mlx;
 	mlx->ui.menu.win = mlx->win;
 	mlx->ui.menu.img = (void *)(&mlx->img);

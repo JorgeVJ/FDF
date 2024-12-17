@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_icons.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 23:59:32 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 09:52:22 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:28:20 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	cube_create(t_map *grid, int a)
 		while (++i < 5)
 		{
 			cube[point][0] = j * a - a / 2;
-			cube[point][1] = !((i - 2) * (i - 3)) * a - a / 2;
-			cube[point][2] = !((i - 1) * (i - 2)) * a - a / 2;
+			cube[point][1] = !((i - 2) & (i - 3)) * a - a / 2;
+			cube[point][2] = !((i - 1) & (i - 2)) * a - a / 2;
 			cube[point][3] = 0xFFFFFF;
 			point++;
 		}

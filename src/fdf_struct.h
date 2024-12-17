@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_struct.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:04:46 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/16 11:53:28 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:30:51 by yzaytoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 // struct s_button;
 // struct s_menu;
 
-typedef struct s_img {
+typedef struct s_mlximg {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_img;
+}				t_mlximg;
 
 /*typedef struct s_point {
 	float	x;
@@ -118,7 +118,7 @@ typedef struct s_mlx {
 	void	*win;
 	int		*cleaner;
 	int		p;
-	t_img	img;
+	t_mlximg	img;
 	t_map	map;
 	t_map	sphere;
 	t_cam	cam;
