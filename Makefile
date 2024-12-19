@@ -75,7 +75,7 @@ OBJS += $(addprefix $(DIR_UI), ${F_UI:.c=.o})
 
 
 ${NAME}:	${OBJS} $(MLXLIB) libft
-			$(CC) $(CFLAGS) ${OBJS} $(DIR_LIB)libft.a $(MLXCONFIG) -o $(NAME) -fsanitize=address -g3
+			$(CC) $(CFLAGS) ${OBJS} $(DIR_LIB)libft.a $(MLXCONFIG) -o $(NAME) #-fsanitize=address -g3
 
 #all: $(NAME)
 all: libft	$(NAME)

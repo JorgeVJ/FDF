@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzaytoun <yzaytoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvasquez <jvasquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:12:06 by jvasquez          #+#    #+#             */
-/*   Updated: 2024/12/17 15:30:51 by yzaytoun         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:02:51 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# include "X11/keysymdef.h"
 
 #ifndef FDF_H
 # define FDF_H
 # define WIN_W	    1024
 # define WIN_H	    1024
-# define KEY_A      0
+/* # define KEY_A      0
 # define KEY_S      1
 # define KEY_D      2
 # define KEY_Z      6
@@ -33,12 +35,14 @@
 # define NPD_3      85
 # define NPD_2      84
 # define NPD_1      83
-# define NPD_0      82
+# define NPD_0      82 */
+
+
+
 # define M_LEFT     1
 # define M_RIGHT    2
 # define M_WUP      4
 # define M_WDO      5
-
 
 # ifdef MACOS
 	# include <mlx.h>

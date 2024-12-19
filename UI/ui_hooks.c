@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   ui_hooks.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jvasquez <jvasquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 10:20:05 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/11/25 22:00:23 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:13:50 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,28 @@
 
 int	hook_keydown(int key, t_mlx *mlx)
 {
+/* 	char *str = ft_itoa(key);
+	char *str2 = ft_itoa(XK_z);
+	ft_putstr_fd(str, 1);
+	ft_putstr_fd(str2, 1); */
 	img_clean(mlx);
 	mlx->mouse.x = mlx->mouse.posx;
 	mlx->mouse.y = mlx->mouse.posy;
-	if (key >= NPD_1 && key <= NPD_9)
+	if (key >= XK_KP_1 && key <= XK_KP_9)
 		proyections(mlx, key);
-	else if (key == KEY_ESC)
+	else if (key == XK_Escape)
 		exit(EXIT_SUCCESS);
-	else if ((key >= KEY_A && key <= KEY_D) || key == KEY_W)
+	else if ((key >= XK_a && key <= XK_d) || key == XK_w)
 		auto_rotate(mlx, key);
-	else if (key == KEY_Q)
+	else if (key == XK_q)
 		update_int_up(mlx, &mlx->cam.view, 1, 3);
-	else if (key == KEY_C)
+	else if (key == XK_c)
 		update_value_up(mlx, (double *)(&mlx->cam.dist), 5, INT_MAX);
-	else if (key == KEY_V)
+	else if (key == XK_v)
 		update_value_down(mlx, (double *)(&mlx->cam.dist), -5, 10);
-	else if (key == KEY_Z)
+	else if (key == XK_z)
 		mlx->cam.z_key = !mlx->cam.z_key;
-	else if (key == KEY_E)
+	else if (key == XK_e)
 		mlx->ui.menu_in = !mlx->ui.menu_in;
 	img_draw(mlx);
 	return (0);
@@ -39,6 +43,7 @@ int	hook_keydown(int key, t_mlx *mlx)
 
 int	hook_mousemove(int x, int y, t_mlx *mlx)
 {
+	if (!mlx) return 0;
 	if (x > WIN_W - 60 && x < WIN_W && y > WIN_H - 60 && y < WIN_H)
 		mlx->ui.mouse_in = 1;
 	else if (mlx->ui.mouse_in)
@@ -86,6 +91,7 @@ int	hook_mouseup(int button, int x, int y, t_mlx *mlx)
 	// sphere_transform(mlx);
 int	hook_rotate(t_mlx *mlx)
 {
+
 	mlx->ui.time++;
 	if (!(mlx->ui.time & 4096) && mlx->ui.mouse_in)
 	{

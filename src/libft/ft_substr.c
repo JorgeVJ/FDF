@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jvasquez <jvasquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:13:19 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/07/11 18:27:09 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/18 22:54:34 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_substr(const char *str, unsigned int start, size_t len)
 	char			*temp;
 	unsigned int	i;
 
-	if (!str)
+	if (!str || start > ft_strlen(str))
 		return (NULL);
 	if (ft_strlen(str) + 1 <= (len + start))
 		len = ft_strlen(str);

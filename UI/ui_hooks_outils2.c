@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_hooks_outils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jvasquez <jvasquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 10:56:13 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 12:16:00 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:16:38 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	auto_rotate(t_mlx *mlx, int key)
 {
-	if (key == KEY_D)
+	if (key == XK_d)
 		mlx->cam.auto_rot[0] = !mlx->cam.auto_rot[0];
-	else if (key == KEY_S)
+	else if (key == XK_s)
 		mlx->cam.auto_rot[2] = !mlx->cam.auto_rot[2];
-	else if (key == KEY_A)
+	else if (key == XK_a)
 		mlx->cam.auto_rot[1] = !mlx->cam.auto_rot[1];
-	else if (key == KEY_W)
+	else if (key == XK_w)
 		mlx->cam.auto_rot[3] = !mlx->cam.auto_rot[3];
 }
 

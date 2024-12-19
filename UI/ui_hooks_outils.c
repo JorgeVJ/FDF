@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_hooks_outils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvasquez <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jvasquez <jvasquez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 23:08:57 by jvasquez          #+#    #+#             */
-/*   Updated: 2022/09/02 10:55:34 by jvasquez         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:14:10 by jvasquez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 // Angle set for projections (called using numpad).
 void	proyections(t_mlx *mlx, int key)
 {
-	if (key == NPD_2 || key == NPD_4 || key == NPD_6 || key == NPD_8)
+	if (key == XK_KP_2 || key == XK_KP_4 || key == XK_KP_6 || key == XK_KP_8)
 		mlx->cam.anglev = 0;
-	else if (key == NPD_5)
+	else if (key == XK_KP_5)
 		mlx->cam.anglev = M_PI_2;
-	else if (key == NPD_7 || key == NPD_9 || key == NPD_1 || key == NPD_3)
+	else if (key == XK_KP_7 || key == XK_KP_9 || key == XK_KP_1 || key == XK_KP_3)
 		mlx->cam.anglev = M_PI_4;
-	if (key == NPD_6)
+	if (key == XK_KP_6)
 		mlx->cam.angleh = 0;
-	else if (key == NPD_8)
+	else if (key == XK_KP_8)
 		mlx->cam.angleh = M_PI_2;
-	else if (key == NPD_4)
+	else if (key == XK_KP_4)
 		mlx->cam.angleh = M_PI;
-	else if (key == NPD_2)
+	else if (key == XK_KP_2)
 		mlx->cam.angleh = -M_PI_2;
-	else if (key == NPD_7)
+	else if (key == XK_KP_7)
 		mlx->cam.angleh = M_PI_4;
-	else if (key == NPD_9)
+	else if (key == XK_KP_9)
 		mlx->cam.angleh = 3 * M_PI_4;
-	else if (key == NPD_1)
+	else if (key == XK_KP_1)
 		mlx->cam.angleh = 5 * M_PI_4;
-	else if (key == NPD_3)
+	else if (key == XK_KP_3)
 		mlx->cam.angleh = 7 * M_PI_4;
 }
 
@@ -69,6 +69,4 @@ void	mouse_left(t_mlx *mlx, int x, int y)
 	}
 	else if (x > UI_X * 2 && y < mlx->ui.y - 25 && !mlx->ui.menu_in)
 		mlx->mouse.l = 1;
-	else if (mlx->ui.menu_in)
-		reload(mlx);
 }

@@ -14,6 +14,8 @@
         "sstream": "c",
         "fdf.h": "c",
         "mlx_menu.h": "c",
-        "fdf_map.h": "c"
+        "fdf_map.h": "c",
+        "keysymdef.h": "c",
+        "get_next_line.h": "c"
     }
 }
